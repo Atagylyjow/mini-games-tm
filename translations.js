@@ -26,6 +26,14 @@ window.translations = {
         'playAgainBtn': 'Ýene Oýna',
         'homeBtn': 'Baş Sahypa',
         
+        // Can sistemi
+        'livesFull': 'Canlar doly',
+        'livesRemaining': 'Galýan canlar',
+        'nextLife': 'Indiki can',
+        'lifeLost': '❌ 1 can ýitirildi!',
+        'lifeRegenerated': '❤️ 1 can täzelendi!',
+        'noLivesLeft': '❌ Canlaryňyz gutardy! 30 minutdan soň täzelener.',
+        
         // Ayarlar
         'settingsTitle': '⚙️ Sazlamalar',
         'languageLabel': '🌍 Dil:',
@@ -63,6 +71,14 @@ window.translations = {
         'playAgainBtn': 'Играть снова',
         'homeBtn': 'Главная',
         
+        // Система жизней
+        'livesFull': 'Жизни полные',
+        'livesRemaining': 'Осталось жизней',
+        'nextLife': 'Следующая жизнь',
+        'lifeLost': '❌ Потеряна 1 жизнь!',
+        'lifeRegenerated': '❤️ Восстановлена 1 жизнь!',
+        'noLivesLeft': '❌ У вас закончились жизни! Восстановятся через 30 минут.',
+        
         // Настройки
         'settingsTitle': '⚙️ Настройки',
         'languageLabel': '🌍 Язык:',
@@ -99,6 +115,14 @@ window.translations = {
         'gameOverTitle': 'Oyun Bitti!',
         'playAgainBtn': 'Tekrar Oyna',
         'homeBtn': 'Ana Sayfa',
+        
+        // Can sistemi
+        'livesFull': 'Canlar dolu',
+        'livesRemaining': 'Kalan canlar',
+        'nextLife': 'Sonraki can',
+        'lifeLost': '❌ 1 can kaybedildi!',
+        'lifeRegenerated': '❤️ 1 can yenilendi!',
+        'noLivesLeft': '❌ Canlarınız bitti! 30 dakika sonra yenilenecek.',
         
         // Ayarlar
         'settingsTitle': '⚙️ Ayarlar',

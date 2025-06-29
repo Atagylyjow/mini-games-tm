@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Games TM</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="styles.css?v=2.0">
+    <link rel="stylesheet" href="styles.css?v=3.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -13,7 +13,18 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1 class="app-title">🎮 Mini Games TM</h1>
+                <div class="lives-system">
+                    <div class="lives-display">
+                        <span id="livesCount">5</span>
+                        <span class="lives-icon">❤️</span>
+                    </div>
+                    <div class="lives-info">
+                        <div id="livesText" class="lives-text">Canlar dolu</div>
+                        <div id="nextLifeTimer" class="next-life-timer" style="display: none;">
+                            <span id="timerText">Sonraki can: 29:45</span>
+                        </div>
+                    </div>
+                </div>
                 <button id="settingsBtn" class="settings-btn" title="Ayarlar">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"></circle>
@@ -132,11 +143,11 @@
         </main>
     </div>
 
-    <script src="translations.js?v=2.0"></script>
-    <script src="games/snake.js?v=2.0"></script>
-    <script src="games/tetris.js?v=2.0"></script>
-    <script src="games/memory.js?v=2.0"></script>
-    <script src="games/tictactoe.js?v=2.0"></script>
-    <script src="app.js?v=2.0"></script>
+    <script src="translations.js?v=3.0"></script>
+    <script src="games/snake.js?v=3.0"></script>
+    <script src="games/tetris.js?v=3.0"></script>
+    <script src="games/memory.js?v=3.0"></script>
+    <script src="games/tictactoe.js?v=3.0"></script>
+    <script src="app.js?v=3.0"></script>
 </body>
 </html> 

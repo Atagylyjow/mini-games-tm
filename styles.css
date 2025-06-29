@@ -39,11 +39,63 @@ body {
     align-items: center;
 }
 
-.app-title {
-    font-size: 1.5rem;
+/* Lives System */
+.lives-system {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.lives-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    border: 2px solid #ff6b6b;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+}
+
+.lives-display #livesCount {
+    font-size: 1.2rem;
     font-weight: 700;
+    color: #ff6b6b;
+    min-width: 20px;
+    text-align: center;
+}
+
+.lives-icon {
+    font-size: 1.2rem;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.lives-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.lives-text {
+    font-size: 0.9rem;
+    font-weight: 500;
     color: #333;
-    margin: 0;
+}
+
+.next-life-timer {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.next-life-timer #timerText {
+    color: #ff6b6b;
+    font-weight: 600;
 }
 
 /* Settings Button */

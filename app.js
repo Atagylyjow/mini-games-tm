@@ -8,16 +8,25 @@ class MiniGamesApp {
         this.currentLanguage = 'tk'; // Varsayılan dil
         this.currentTheme = 'light'; // Varsayılan tema
         
+        // Can sistemi
+        this.maxLives = 5;
+        this.lives = this.maxLives;
+        this.lifeRegenerationTime = 30 * 60 * 1000; // 30 dakika (milisaniye)
+        this.lastLifeLossTime = null;
+        this.lifeTimer = null;
+        
         this.init();
     }
     
     init() {
         this.initTelegram();
         this.loadSettings();
+        this.loadLives();
         this.bindEvents();
         this.loadLeaderboard();
         this.updateLeaderboard();
         this.updateLanguage();
+        this.startLifeTimer();
     }
     
     initTelegram() {
@@ -66,10 +75,117 @@ class MiniGamesApp {
         localStorage.setItem('miniGamesTheme', this.currentTheme);
     }
     
+    loadLives() {
+        // Load lives from localStorage
+        const savedLives = localStorage.getItem('miniGamesLives');
+        const savedLastLifeLoss = localStorage.getItem('miniGamesLastLifeLoss');
+        
+        if (savedLives !== null) {
+            this.lives = parseInt(savedLives);
+        }
+        
+        if (savedLastLifeLoss) {
+            this.lastLifeLossTime = parseInt(savedLastLifeLoss);
+        }
+        
+        this.updateLivesDisplay();
+    }
+    
+    saveLives() {
+        localStorage.setItem('miniGamesLives', this.lives.toString());
+        if (this.lastLifeLossTime) {
+            localStorage.setItem('miniGamesLastLifeLoss', this.lastLifeLossTime.toString());
+        }
+    }
+    
+    startLifeTimer() {
+        // Check for life regeneration every second
+        this.lifeTimer = setInterval(() => {
+            this.checkLifeRegeneration();
+        }, 1000);
+    }
+    
+    checkLifeRegeneration() {
+        if (this.lives >= this.maxLives) {
+            this.updateLivesDisplay();
+            return;
+        }
+        
+        if (!this.lastLifeLossTime) {
+            this.lastLifeLossTime = Date.now();
+            this.saveLives();
+        }
+        
+        const timeSinceLastLoss = Date.now() - this.lastLifeLossTime;
+        const timeUntilNextLife = this.lifeRegenerationTime - timeSinceLastLoss;
+        
+        if (timeUntilNextLife <= 0) {
+            // Add a life
+            this.lives = Math.min(this.lives + 1, this.maxLives);
+            this.lastLifeLossTime = Date.now();
+            this.saveLives();
+            this.updateLivesDisplay();
+            
+            // Show notification
+            this.showNotification(this.getTranslation('lifeRegenerated'), 'success');
+        } else {
+            // Update timer display
+            this.updateLifeTimer(timeUntilNextLife);
+        }
+    }
+    
+    updateLifeTimer(timeRemaining) {
+        const minutes = Math.floor(timeRemaining / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+        const timerText = `${this.getTranslation('nextLife')}: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        document.getElementById('timerText').textContent = timerText;
+    }
+    
+    updateLivesDisplay() {
+        const livesCount = document.getElementById('livesCount');
+        const livesText = document.getElementById('livesText');
+        const nextLifeTimer = document.getElementById('nextLifeTimer');
+        
+        livesCount.textContent = this.lives;
+        
+        if (this.lives >= this.maxLives) {
+            livesText.textContent = this.getTranslation('livesFull');
+            nextLifeTimer.style.display = 'none';
+        } else {
+            livesText.textContent = `${this.getTranslation('livesRemaining')}: ${this.lives}/${this.maxLives}`;
+            nextLifeTimer.style.display = 'block';
+        }
+    }
+    
+    loseLife() {
+        if (this.lives > 0) {
+            this.lives--;
+            this.lastLifeLossTime = Date.now();
+            this.saveLives();
+            this.updateLivesDisplay();
+            
+            // Show notification
+            this.showNotification(this.getTranslation('lifeLost'), 'error');
+            
+            return true;
+        }
+        return false;
+    }
+    
+    canPlayGame() {
+        return this.lives > 0;
+    }
+    
     bindEvents() {
         // Game card clicks
         document.querySelectorAll('.game-card').forEach(card => {
             card.addEventListener('click', (e) => {
+                if (!this.canPlayGame()) {
+                    this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+                    return;
+                }
+                
                 const gameType = card.dataset.game;
                 this.startGame(gameType);
             });
@@ -96,6 +212,11 @@ class MiniGamesApp {
         
         // Game over buttons
         document.getElementById('playAgainBtn').addEventListener('click', () => {
+            if (!this.canPlayGame()) {
+                this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+                this.showHomeScreen();
+                return;
+            }
             this.restartCurrentGame();
         });
         
@@ -232,6 +353,9 @@ class MiniGamesApp {
         // Update theme button texts
         document.getElementById('lightTheme').textContent = this.getTranslation('lightTheme');
         document.getElementById('darkTheme').textContent = this.getTranslation('darkTheme');
+        
+        // Update lives display
+        this.updateLivesDisplay();
     }
     
     getTranslation(key) {
@@ -240,6 +364,11 @@ class MiniGamesApp {
     }
     
     startGame(gameType) {
+        if (!this.canPlayGame()) {
+            this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+            return;
+        }
+        
         this.currentGameType = gameType;
         this.showGameScreen();
         
@@ -319,11 +448,20 @@ class MiniGamesApp {
             // Add to leaderboard
             this.addToLeaderboard(finalScore);
             
+            // Lose a life
+            this.loseLife();
+            
             this.showGameOverScreen();
         }
     }
     
     restartCurrentGame() {
+        if (!this.canPlayGame()) {
+            this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+            this.showHomeScreen();
+            return;
+        }
+        
         if (this.currentGame) {
             this.currentGame.restart();
             this.showGameScreen();
