@@ -1,4 +1,84 @@
 const translations = {
+    tk: {
+        // Ana sayfa
+        welcomeTitle: "Hoş Geldiňiz!",
+        welcomeText: "Gyzykly mini oýunlary oýnaň we global reýtingde ýeriňizi alyň!",
+        
+        // Oyun başlıkları
+        snakeTitle: "Ýylan",
+        snakeDesc: "Klassik ýylan oýuny",
+        tetrisTitle: "Tetris",
+        tetrisDesc: "Bloklary düzüň",
+        memoryTitle: "Ýat",
+        memoryDesc: "Kartlary gabatlaşdyryň",
+        tictactoeTitle: "XOX",
+        tictactoeDesc: "Klassik XOX oýuny",
+        
+        // Sıralama
+        leaderboardTitle: "🏆 Global Reýting",
+        
+        // Oyun ekranı
+        currentGameTitle: "Oýun",
+        scoreDisplay: "Hasapla: {score}",
+        
+        // Oyun sonu
+        gameOverTitle: "Oýun Gutardy!",
+        finalScoreText: "Jemi Hasapla: {score}",
+        playAgainBtn: "Ýene Oýna",
+        homeBtn: "Baş Sahypa",
+        
+        // Genel
+        back: "Yza",
+        pause: "Duraklat",
+        resume: "Dowam Et",
+        restart: "Täzeden Başlat",
+        
+        // Mesajlar
+        newHighScore: "Täze Ýokary Hasapla!",
+        gamePaused: "Oýun Duraklatdy",
+        gameResumed: "Oýun Dowam Edýär"
+    },
+    
+    ru: {
+        // Главная страница
+        welcomeTitle: "Добро пожаловать!",
+        welcomeText: "Играйте в веселые мини-игры и соревнуйтесь в глобальном рейтинге!",
+        
+        // Названия игр
+        snakeTitle: "Змейка",
+        snakeDesc: "Классическая игра змейка",
+        tetrisTitle: "Тетрис",
+        tetrisDesc: "Расположите блоки",
+        memoryTitle: "Память",
+        memoryDesc: "Найдите пары карт",
+        tictactoeTitle: "Крестики-нолики",
+        tictactoeDesc: "Классическая игра крестики-нолики",
+        
+        // Рейтинг
+        leaderboardTitle: "🏆 Глобальный рейтинг",
+        
+        // Игровой экран
+        currentGameTitle: "Игра",
+        scoreDisplay: "Счет: {score}",
+        
+        // Конец игры
+        gameOverTitle: "Игра окончена!",
+        finalScoreText: "Финальный счет: {score}",
+        playAgainBtn: "Играть снова",
+        homeBtn: "Главное меню",
+        
+        // Общее
+        back: "Назад",
+        pause: "Пауза",
+        resume: "Продолжить",
+        restart: "Перезапуск",
+        
+        // Сообщения
+        newHighScore: "Новый рекорд!",
+        gamePaused: "Игра приостановлена",
+        gameResumed: "Игра продолжается"
+    },
+    
     tr: {
         // Ana sayfa
         welcomeTitle: "Hoş Geldiniz!",
@@ -37,86 +117,6 @@ const translations = {
         newHighScore: "Yeni Yüksek Skor!",
         gamePaused: "Oyun Duraklatıldı",
         gameResumed: "Oyun Devam Ediyor"
-    },
-    
-    en: {
-        // Home page
-        welcomeTitle: "Welcome!",
-        welcomeText: "Play fun mini games and compete in the global leaderboard!",
-        
-        // Game titles
-        snakeTitle: "Snake",
-        snakeDesc: "Classic snake game",
-        tetrisTitle: "Tetris",
-        tetrisDesc: "Arrange the blocks",
-        memoryTitle: "Memory",
-        memoryDesc: "Match the cards",
-        tictactoeTitle: "Tic Tac Toe",
-        tictactoeDesc: "Classic tic tac toe game",
-        
-        // Leaderboard
-        leaderboardTitle: "🏆 Global Leaderboard",
-        
-        // Game screen
-        currentGameTitle: "Game",
-        scoreDisplay: "Score: {score}",
-        
-        // Game over
-        gameOverTitle: "Game Over!",
-        finalScoreText: "Final Score: {score}",
-        playAgainBtn: "Play Again",
-        homeBtn: "Main Menu",
-        
-        // General
-        back: "Back",
-        pause: "Pause",
-        resume: "Resume",
-        restart: "Restart",
-        
-        // Messages
-        newHighScore: "New High Score!",
-        gamePaused: "Game Paused",
-        gameResumed: "Game Resumed"
-    },
-    
-    de: {
-        // Startseite
-        welcomeTitle: "Willkommen!",
-        welcomeText: "Spiele lustige Mini-Spiele und konkurriere in der globalen Rangliste!",
-        
-        // Spieltitel
-        snakeTitle: "Schlange",
-        snakeDesc: "Klassisches Schlangenspiel",
-        tetrisTitle: "Tetris",
-        tetrisDesc: "Ordne die Blöcke",
-        memoryTitle: "Gedächtnis",
-        memoryDesc: "Finde die Paare",
-        tictactoeTitle: "Tic Tac Toe",
-        tictactoeDesc: "Klassisches Tic Tac Toe Spiel",
-        
-        // Rangliste
-        leaderboardTitle: "🏆 Globale Rangliste",
-        
-        // Spielbildschirm
-        currentGameTitle: "Spiel",
-        scoreDisplay: "Punktzahl: {score}",
-        
-        // Spielende
-        gameOverTitle: "Spiel Vorbei!",
-        finalScoreText: "Endpunktzahl: {score}",
-        playAgainBtn: "Nochmal Spielen",
-        homeBtn: "Hauptmenü",
-        
-        // Allgemein
-        back: "Zurück",
-        pause: "Pause",
-        resume: "Fortsetzen",
-        restart: "Neustart",
-        
-        // Nachrichten
-        newHighScore: "Neuer Highscore!",
-        gamePaused: "Spiel Pausiert",
-        gameResumed: "Spiel Fortgesetzt"
     }
 };
 
@@ -149,7 +149,7 @@ function changeLanguage(lang) {
 
 // Sayfa yüklendiğinde dil ayarını yükle
 document.addEventListener('DOMContentLoaded', () => {
-    const savedLanguage = localStorage.getItem('selectedLanguage') || 'tr';
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'tk';
     changeLanguage(savedLanguage);
     
     // Dil seçici event listener

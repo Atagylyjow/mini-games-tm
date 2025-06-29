@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +16,9 @@
                 <h1 class="app-title">🎮 Mini Games TM</h1>
                 <div class="language-selector">
                     <select id="languageSelect">
+                        <option value="tk">🇹🇲 TM</option>
+                        <option value="ru">🇷🇺 RU</option>
                         <option value="tr">🇹🇷 TR</option>
-                        <option value="en">🇺🇸 EN</option>
-                        <option value="de">🇩🇪 DE</option>
                     </select>
                 </div>
             </div>
@@ -29,35 +29,35 @@
             <!-- Home Screen -->
             <div id="homeScreen" class="screen active">
                 <div class="welcome-section">
-                    <h2 id="welcomeTitle">Hoş Geldiniz!</h2>
-                    <p id="welcomeText">Eğlenceli mini oyunları oynayın ve global sıralamada yerinizi alın!</p>
+                    <h2 id="welcomeTitle">Hoş Geldiňiz!</h2>
+                    <p id="welcomeText">Gyzykly mini oýunlary oýnaň we global reýtingde ýeriňizi alyň!</p>
                 </div>
 
                 <div class="games-grid">
                     <div class="game-card" data-game="snake">
                         <div class="game-icon">🐍</div>
-                        <h3 id="snakeTitle">Snake</h3>
-                        <p id="snakeDesc">Klasik yılan oyunu</p>
+                        <h3 id="snakeTitle">Ýylan</h3>
+                        <p id="snakeDesc">Klassik ýylan oýuny</p>
                     </div>
                     <div class="game-card" data-game="tetris">
                         <div class="game-icon">🧩</div>
                         <h3 id="tetrisTitle">Tetris</h3>
-                        <p id="tetrisDesc">Blokları düzenleyin</p>
+                        <p id="tetrisDesc">Bloklary düzüň</p>
                     </div>
                     <div class="game-card" data-game="memory">
                         <div class="game-icon">🧠</div>
-                        <h3 id="memoryTitle">Hafıza</h3>
-                        <p id="memoryDesc">Kartları eşleştirin</p>
+                        <h3 id="memoryTitle">Ýat</h3>
+                        <p id="memoryDesc">Kartlary gabatlaşdyryň</p>
                     </div>
                     <div class="game-card" data-game="tictactoe">
                         <div class="game-icon">⭕</div>
                         <h3 id="tictactoeTitle">XOX</h3>
-                        <p id="tictactoeDesc">Klasik XOX oyunu</p>
+                        <p id="tictactoeDesc">Klassik XOX oýuny</p>
                     </div>
                 </div>
 
                 <div class="leaderboard-section">
-                    <h3 id="leaderboardTitle">🏆 Global Sıralama</h3>
+                    <h3 id="leaderboardTitle">🏆 Global Reýting</h3>
                     <div id="leaderboardList" class="leaderboard-list">
                         <!-- Leaderboard items will be populated here -->
                     </div>
@@ -68,9 +68,9 @@
             <div id="gameScreen" class="screen">
                 <div class="game-header">
                     <button id="backToHome" class="back-btn">←</button>
-                    <h2 id="currentGameTitle">Oyun</h2>
+                    <h2 id="currentGameTitle">Oýun</h2>
                     <div class="game-stats">
-                        <span id="scoreDisplay">Skor: 0</span>
+                        <span id="scoreDisplay">Hasapla: 0</span>
                     </div>
                 </div>
                 
@@ -87,13 +87,13 @@
             <!-- Game Over Screen -->
             <div id="gameOverScreen" class="screen">
                 <div class="game-over-content">
-                    <h2 id="gameOverTitle">Oyun Bitti!</h2>
+                    <h2 id="gameOverTitle">Oýun Gutardy!</h2>
                     <div class="final-score">
-                        <span id="finalScoreText">Final Skor: 0</span>
+                        <span id="finalScoreText">Jemi Hasapla: 0</span>
                     </div>
                     <div class="game-over-buttons">
-                        <button id="playAgainBtn" class="btn primary">Tekrar Oyna</button>
-                        <button id="homeBtn" class="btn secondary">Ana Menü</button>
+                        <button id="playAgainBtn" class="btn primary">Ýene Oýna</button>
+                        <button id="homeBtn" class="btn secondary">Baş Sahypa</button>
                     </div>
                 </div>
             </div>
