@@ -144,28 +144,18 @@ class MiniGamesApp {
     }
     
     updateLifeTimer(timeRemaining) {
-        const minutes = Math.floor(timeRemaining / (1000 * 60));
-        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-        const timerText = `${this.getTranslation('nextLife')}: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-        document.getElementById('timerText').textContent = timerText;
+        // Timer artık lives modal'da gösteriliyor, bu fonksiyon kullanılmıyor
+        // Sadece checkLifeRegeneration'da çağrılıyor ama modal açık değilse gerek yok
     }
     
     updateLivesDisplay() {
         const livesCount = document.getElementById('livesCount');
-        const livesText = document.getElementById('livesText');
-        const nextLifeTimer = document.getElementById('nextLifeTimer');
         const livesBarFill = document.getElementById('livesBarFill');
         
-        const fillPercentage = (this.lives / this.maxLives) * 100;
-        livesBarFill.style.width = `${fillPercentage}%`;
-        livesCount.textContent = `${this.lives}/${this.maxLives}`;
-        
-        if (this.lives >= this.maxLives) {
-            livesText.textContent = this.getTranslation('livesFull');
-            nextLifeTimer.style.display = 'none';
-        } else {
-            livesText.textContent = this.getTranslation('livesRemaining');
-            nextLifeTimer.style.display = 'block';
+        if (livesCount && livesBarFill) {
+            const fillPercentage = (this.lives / this.maxLives) * 100;
+            livesBarFill.style.width = `${fillPercentage}%`;
+            livesCount.textContent = `${this.lives}/${this.maxLives}`;
         }
     }
     
