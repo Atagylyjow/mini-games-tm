@@ -15,6 +15,9 @@ class MiniGamesApp {
         this.lastLifeLossTime = null;
         this.lifeTimer = null;
         
+        // Game over kontrolü için flag
+        this.gameOverHandled = false;
+        
         this.init();
     }
     
@@ -256,8 +259,9 @@ class MiniGamesApp {
         
         // Check for game over
         setInterval(() => {
-            if (this.currentGame && this.currentGame.isGameOver()) {
+            if (this.currentGame && this.currentGame.isGameOver() && !this.gameOverHandled) {
                 this.handleGameOver();
+                this.gameOverHandled = true;
             }
         }, 100);
         
@@ -370,6 +374,7 @@ class MiniGamesApp {
         }
         
         this.currentGameType = gameType;
+        this.gameOverHandled = false;
         this.showGameScreen();
         
         const canvas = document.getElementById('gameCanvas');
@@ -414,6 +419,8 @@ class MiniGamesApp {
         if (this.currentGame) {
             this.currentGame = null;
         }
+        
+        this.gameOverHandled = false;
     }
     
     showGameOverScreen() {
