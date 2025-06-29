@@ -522,12 +522,9 @@ class MiniGamesApp {
             ${this.getTranslation('loadingAd')}
         `;
         
-        console.log('Preloading Monetag ad with test mode...');
+        console.log('Preloading Monetag ad...');
         
-        // Test modunu etkinleştirmek için parametre ekliyoruz
-        const adParams = { type: 'preload', test: true };
-
-        show_9505533(adParams)
+        show_9505533({ type: 'preload' })
             .then(() => {
                 console.log('Ad preloaded successfully.');
                 this.adReady = true;
@@ -561,10 +558,9 @@ class MiniGamesApp {
             ${this.getTranslation('watchingAd')}
         `;
 
-        console.log('Showing Monetag ad with test mode...');
+        console.log('Showing Monetag ad...');
         
-        // Test modunu etkinleştirmek için parametre ekliyoruz
-        show_9505533({ test: true })
+        show_9505533()
             .then(() => {
                 console.log('User watched the ad.');
                 this.showNotification(this.getTranslation('coinsEarned').replace('{amount}', 1), 'success');
