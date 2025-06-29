@@ -7,11 +7,12 @@ class MiniGamesApp {
         this.playerName = 'Player';
         this.currentLanguage = 'tk'; // Varsayılan dil
         this.currentTheme = 'light'; // Varsayılan tema
+        this.activeScreen = 'mainMenuScreen'; // Aktif ekran
         
         // Can sistemi
         this.maxLives = 5;
         this.lives = this.maxLives;
-        this.lifeRegenerationTime = 30 * 60 * 1000; // 30 dakika (milisaniye)
+        this.lifeRegenerationTime = 30 * 60 * 1000; // 30 dakika
         this.lastLifeLossTime = null;
         this.lifeTimer = null;
         
@@ -34,16 +35,15 @@ class MiniGamesApp {
         this.updateLeaderboard();
         this.updateLanguage();
         this.startLifeTimer();
+        this.showScreen('mainMenuScreen');
     }
     
     initTelegram() {
-        // Initialize Telegram Web App
         if (window.Telegram && window.Telegram.WebApp) {
             this.telegram = window.Telegram.WebApp;
             this.telegram.ready();
             this.telegram.expand();
             
-            // Get user info
             if (this.telegram.initDataUnsafe && this.telegram.initDataUnsafe.user) {
                 const user = this.telegram.initDataUnsafe.user;
                 this.playerName = user.first_name || 'Player';
@@ -53,7 +53,6 @@ class MiniGamesApp {
                 this.updateUsernameDisplay();
             }
             
-            // Set theme based on Telegram theme
             if (this.telegram.colorScheme === 'dark') {
                 this.setTheme('dark');
             }
@@ -61,18 +60,12 @@ class MiniGamesApp {
     }
     
     loadSettings() {
-        // Load saved settings from localStorage
         const savedLanguage = localStorage.getItem('miniGamesLanguage');
         const savedTheme = localStorage.getItem('miniGamesTheme');
         
-        if (savedLanguage) {
-            this.currentLanguage = savedLanguage;
-        }
-        if (savedTheme) {
-            this.currentTheme = savedTheme;
-        }
+        if (savedLanguage) this.currentLanguage = savedLanguage;
+        if (savedTheme) this.currentTheme = savedTheme;
         
-        // Update UI elements
         document.getElementById('languageSelect').value = this.currentLanguage;
         this.updateThemeButtons();
     }
@@ -83,17 +76,11 @@ class MiniGamesApp {
     }
     
     loadLives() {
-        // Load lives from localStorage
         const savedLives = localStorage.getItem('miniGamesLives');
         const savedLastLifeLoss = localStorage.getItem('miniGamesLastLifeLoss');
         
-        if (savedLives !== null) {
-            this.lives = parseInt(savedLives);
-        }
-        
-        if (savedLastLifeLoss) {
-            this.lastLifeLossTime = parseInt(savedLastLifeLoss);
-        }
+        if (savedLives !== null) this.lives = parseInt(savedLives);
+        if (savedLastLifeLoss) this.lastLifeLossTime = parseInt(savedLastLifeLoss);
         
         this.updateLivesDisplay();
     }
@@ -106,11 +93,8 @@ class MiniGamesApp {
     }
     
     loadCoins() {
-        // Load coins from localStorage
         const savedCoins = localStorage.getItem('miniGamesCoins');
-        if (savedCoins !== null) {
-            this.coins = parseInt(savedCoins);
-        }
+        if (savedCoins !== null) this.coins = parseInt(savedCoins);
         this.updateCoinDisplay();
     }
     
@@ -122,8 +106,6 @@ class MiniGamesApp {
         this.coins += amount;
         this.saveCoins();
         this.updateCoinDisplay();
-        
-        // Show notification
         this.showNotification(this.getTranslation('coinsEarned').replace('{amount}', amount), 'success');
     }
     
@@ -133,10 +115,7 @@ class MiniGamesApp {
     }
     
     startLifeTimer() {
-        // Check for life regeneration every second
-        this.lifeTimer = setInterval(() => {
-            this.checkLifeRegeneration();
-        }, 1000);
+        this.lifeTimer = setInterval(() => this.checkLifeRegeneration(), 1000);
     }
     
     checkLifeRegeneration() {
@@ -154,16 +133,12 @@ class MiniGamesApp {
         const timeUntilNextLife = this.lifeRegenerationTime - timeSinceLastLoss;
         
         if (timeUntilNextLife <= 0) {
-            // Add a life
             this.lives = Math.min(this.lives + 1, this.maxLives);
             this.lastLifeLossTime = Date.now();
             this.saveLives();
             this.updateLivesDisplay();
-            
-            // Show notification
             this.showNotification(this.getTranslation('lifeRegenerated'), 'success');
         } else {
-            // Update timer display
             this.updateLifeTimer(timeUntilNextLife);
         }
     }
@@ -172,7 +147,6 @@ class MiniGamesApp {
         const minutes = Math.floor(timeRemaining / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
         const timerText = `${this.getTranslation('nextLife')}: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-        
         document.getElementById('timerText').textContent = timerText;
     }
     
@@ -182,11 +156,8 @@ class MiniGamesApp {
         const nextLifeTimer = document.getElementById('nextLifeTimer');
         const livesBarFill = document.getElementById('livesBarFill');
         
-        // Update can barı animasyonu
         const fillPercentage = (this.lives / this.maxLives) * 100;
         livesBarFill.style.width = `${fillPercentage}%`;
-        
-        // Update can sayısı
         livesCount.textContent = `${this.lives}/${this.maxLives}`;
         
         if (this.lives >= this.maxLives) {
@@ -204,10 +175,7 @@ class MiniGamesApp {
             this.lastLifeLossTime = Date.now();
             this.saveLives();
             this.updateLivesDisplay();
-            
-            // Show notification
             this.showNotification(this.getTranslation('lifeLost'), 'error');
-            
             return true;
         }
         return false;
@@ -216,153 +184,178 @@ class MiniGamesApp {
     canPlayGame() {
         return this.lives > 0;
     }
+
+    showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.remove('active');
+        });
+        document.getElementById(screenId).classList.add('active');
+        this.activeScreen = screenId;
+    }
     
     bindEvents() {
-        // Game card clicks
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (!this.canPlayGame()) {
-                    this.showNotification(this.getTranslation('noLivesLeft'), 'error');
-                    return;
-                }
-                
-                const gameType = card.dataset.game;
-                this.startGame(gameType);
-            });
-        });
+        // Alt menü butonları
+        document.getElementById('singlePlayerBtn').addEventListener('click', () => this.showScreen('singlePlayerScreen'));
+        document.getElementById('multiPlayerBtn').addEventListener('click', () => this.showScreen('multiPlayerScreen'));
+        document.getElementById('shopBtn').addEventListener('click', () => this.showScreen('shopScreen'));
+        document.getElementById('leaderboardBtn').addEventListener('click', () => this.showScreen('leaderboardScreen'));
         
-        // Back button
-        document.getElementById('backToHome').addEventListener('click', () => {
-            this.showHomeScreen();
-        });
+        // Geri butonları
+        document.getElementById('backToMain').addEventListener('click', () => this.showScreen('mainMenuScreen'));
+        document.getElementById('backToMain2').addEventListener('click', () => this.showScreen('mainMenuScreen'));
+        document.getElementById('backToMain3').addEventListener('click', () => this.showScreen('mainMenuScreen'));
+        document.getElementById('backToMain4').addEventListener('click', () => this.showScreen('mainMenuScreen'));
+        document.getElementById('backToGames').addEventListener('click', () => this.showScreen('singlePlayerScreen'));
         
-        // Pause button
-        document.getElementById('pauseBtn').addEventListener('click', () => {
-            if (this.currentGame) {
-                this.currentGame.pause();
-            }
+        // Oyun kartı
+        document.querySelector('.game-card[data-game="bubble-shooter"]').addEventListener('click', () => {
+            this.startGame('bubble-shooter');
         });
-        
-        // Restart button
-        document.getElementById('restartBtn').addEventListener('click', () => {
-            if (this.currentGame) {
-                this.currentGame.restart();
-            }
-        });
-        
-        // Game over buttons
+
+        // Çok oyunculu ekranındaki buton
+        document.getElementById('trySinglePlayer').addEventListener('click', () => this.showScreen('singlePlayerScreen'));
+
+        // Game over butonları
         document.getElementById('playAgainBtn').addEventListener('click', () => {
             if (!this.canPlayGame()) {
                 this.showNotification(this.getTranslation('noLivesLeft'), 'error');
-                this.showHomeScreen();
+                this.showScreen('mainMenuScreen');
                 return;
             }
             this.restartCurrentGame();
         });
         
         document.getElementById('homeBtn').addEventListener('click', () => {
-            this.showHomeScreen();
+            this.showScreen('mainMenuScreen');
         });
+
+        // Ayarlar ve Coin Modalları
+        this.bindModalEvents();
         
-        // Settings modal events
-        document.getElementById('settingsBtn').addEventListener('click', () => {
-            this.openSettings();
-        });
-        
-        document.getElementById('closeSettings').addEventListener('click', () => {
-            this.closeSettings();
-        });
-        
-        // Close modal when clicking outside
-        document.getElementById('settingsModal').addEventListener('click', (e) => {
-            if (e.target.id === 'settingsModal') {
-                this.closeSettings();
-            }
-        });
-        
-        // Coin modal events
-        document.getElementById('addCoinBtn').addEventListener('click', () => {
-            this.openCoinModal();
-        });
-        
-        document.getElementById('closeCoinModal').addEventListener('click', () => {
-            this.closeCoinModal();
-        });
-        
-        // Close coin modal when clicking outside
-        document.getElementById('coinModal').addEventListener('click', (e) => {
-            if (e.target.id === 'coinModal') {
-                this.closeCoinModal();
-            }
-        });
-        
-        // Watch ad button
-        document.getElementById('watchAdBtn').addEventListener('click', () => {
-            this.watchAd();
-        });
-        
-        // Language change
-        document.getElementById('languageSelect').addEventListener('change', (e) => {
-            this.changeLanguage(e.target.value);
-        });
-        
-        // Theme buttons
-        document.getElementById('lightTheme').addEventListener('click', () => {
-            this.setTheme('light');
-        });
-        
-        document.getElementById('darkTheme').addEventListener('click', () => {
-            this.setTheme('dark');
-        });
-        
-        // Check for game over
+        // Periyodik kontroller
         setInterval(() => {
             if (this.currentGame && this.currentGame.isGameOver() && !this.gameOverHandled) {
-                this.handleGameOver();
+                this.handleGameOver(this.currentGame.getScore());
                 this.gameOverHandled = true;
             }
         }, 100);
         
-        // Update score display
         setInterval(() => {
-            if (this.currentGame) {
+            if (this.currentGame && !this.currentGame.isGameOver()) {
                 this.updateScoreDisplay();
             }
         }, 100);
     }
     
+    bindModalEvents() {
+        // Settings modal
+        document.getElementById('settingsBtn').addEventListener('click', () => this.openSettings());
+        document.getElementById('closeSettings').addEventListener('click', () => this.closeSettings());
+        document.getElementById('settingsModal').addEventListener('click', (e) => {
+            if (e.target.id === 'settingsModal') this.closeSettings();
+        });
+        
+        // Coin modal
+        document.getElementById('addCoinBtn').addEventListener('click', () => this.openCoinModal());
+        document.getElementById('closeCoinModal').addEventListener('click', () => this.closeCoinModal());
+        document.getElementById('coinModal').addEventListener('click', (e) => {
+            if (e.target.id === 'coinModal') this.closeCoinModal();
+        });
+        
+        // Ad watch
+        document.getElementById('watchAdBtn').addEventListener('click', () => this.watchAd());
+        
+        // Language & Theme
+        document.getElementById('languageSelect').addEventListener('change', (e) => this.changeLanguage(e.target.value));
+        document.getElementById('lightTheme').addEventListener('click', () => this.setTheme('light'));
+        document.getElementById('darkTheme').addEventListener('click', () => this.setTheme('dark'));
+    }
+
+    startGame(gameType) {
+        if (!this.canPlayGame()) {
+            this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+            return;
+        }
+        
+        if (this.loseLife()) {
+            this.gameOverHandled = false;
+            this.currentGameType = gameType;
+            this.showScreen('gameScreen');
+            
+            const canvas = document.getElementById('gameCanvas');
+            
+            switch (gameType) {
+                case 'bubble-shooter':
+                    this.currentGame = new BubbleShooter(canvas);
+                    break;
+                // Diğer oyunlar buraya eklenebilir
+            }
+            
+            if (this.currentGame) {
+                this.currentGame.start();
+                this.updateScoreDisplay();
+            }
+        }
+    }
+    
+    restartCurrentGame() {
+        if (this.currentGame) {
+            if (!this.canPlayGame()) {
+                this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+                this.showScreen('mainMenuScreen');
+                return;
+            }
+            if (this.loseLife()) {
+                this.gameOverHandled = false;
+                this.currentGame.restart();
+            } else {
+                this.showScreen('mainMenuScreen');
+            }
+        }
+    }
+    
+    handleGameOver(score) {
+        this.addScoreToLeaderboard(this.playerName, score, this.currentGameType);
+        document.getElementById('finalScoreText').textContent = `${this.getTranslation('finalScore')}: ${score}`;
+        this.showScreen('gameOverScreen');
+    }
+    
+    updateScoreDisplay() {
+        if (this.currentGame) {
+            const score = this.currentGame.getScore();
+            document.getElementById('scoreDisplay').textContent = `${this.getTranslation('score')}: ${score}`;
+        }
+    }
+    
+    // Diğer fonksiyonlar (leaderboard, modals, theme, language vb.)
+    // ... (önceki koddan büyük ölçüde aynı kalacak)
+    
     openSettings() {
         document.getElementById('settingsModal').classList.add('active');
-        // Prevent body scroll when modal is open
         document.body.style.overflow = 'hidden';
     }
     
     closeSettings() {
         document.getElementById('settingsModal').classList.remove('active');
-        // Restore body scroll
         document.body.style.overflow = '';
     }
     
     openCoinModal() {
         document.getElementById('coinModal').classList.add('active');
         this.updateCoinDisplay();
-        // Prevent body scroll when modal is open
         document.body.style.overflow = 'hidden';
     }
     
     closeCoinModal() {
         document.getElementById('coinModal').classList.remove('active');
-        // Restore body scroll
         document.body.style.overflow = '';
     }
     
     watchAd() {
-        // Reklam izleme simülasyonu
         const watchAdBtn = document.getElementById('watchAdBtn');
         watchAdBtn.disabled = true;
         watchAdBtn.textContent = this.getTranslation('watchingAd');
         
-        // 3 saniye sonra coin ver
         setTimeout(() => {
             this.addCoins(1);
             watchAdBtn.disabled = false;
@@ -375,32 +368,21 @@ class MiniGamesApp {
         this.currentLanguage = language;
         this.saveSettings();
         this.updateLanguage();
-        
-        // Show notification
         this.showNotification(this.getTranslation('languageChanged'), 'success');
     }
     
     setTheme(theme) {
         this.currentTheme = theme;
         this.saveSettings();
-        
-        // Remove existing theme classes
         document.body.classList.remove('light-theme', 'dark-theme');
-        
-        // Add new theme class
         document.body.classList.add(`${theme}-theme`);
-        
-        // Update theme buttons
         this.updateThemeButtons();
-        
-        // Show notification
         this.showNotification(this.getTranslation('themeChanged'), 'success');
     }
     
     updateThemeButtons() {
         const lightBtn = document.getElementById('lightTheme');
         const darkBtn = document.getElementById('darkTheme');
-        
         lightBtn.classList.toggle('active', this.currentTheme === 'light');
         darkBtn.classList.toggle('active', this.currentTheme === 'dark');
     }
@@ -409,191 +391,103 @@ class MiniGamesApp {
         document.getElementById('usernameDisplay').textContent = this.playerName;
     }
     
+    getTranslation(key) {
+        const translations = window.translations[this.currentLanguage];
+        return (translations && translations[key]) ? translations[key] : key;
+    }
+
     updateLanguage() {
-        // Update all translatable elements
         const elements = {
-            'welcomeTitle': 'welcomeTitle',
-            'welcomeText': 'welcomeText',
-            'snakeTitle': 'snakeTitle',
-            'snakeDesc': 'snakeDesc',
-            'tetrisTitle': 'tetrisTitle',
-            'tetrisDesc': 'tetrisDesc',
-            'memoryTitle': 'memoryTitle',
-            'memoryDesc': 'memoryDesc',
-            'tictactoeTitle': 'tictactoeTitle',
-            'tictactoeDesc': 'tictactoeDesc',
+            // Ana Menü
+            'logo-title': 'logoTitle',
+            'logo-subtitle': 'logoSubtitle',
+            'totalGamesLabel': 'totalGames',
+            'bestScoreLabel': 'bestScore',
+
+            // Tek Oyunculu
+            'singlePlayerTitle': 'singlePlayerTitle',
+            'bubbleShooterTitle': 'bubbleShooterTitle',
+            'bubbleShooterDesc': 'bubbleShooterDesc',
+
+            // Çok Oyunculu
+            'multiPlayerTitle': 'multiPlayerTitle',
+            'comingSoonTitle': 'comingSoonTitle',
+            'comingSoonText': 'comingSoonText',
+            'trySinglePlayer': 'trySinglePlayer',
+
+            // Mağaza
+            'shopTitle': 'shopTitle',
+
+            // Leaderboard
             'leaderboardTitle': 'leaderboardTitle',
-            'currentGameTitle': 'currentGameTitle',
+
+            // Oyun
+            'currentGameTitle': 'gameTitle',
             'gameOverTitle': 'gameOverTitle',
             'playAgainBtn': 'playAgainBtn',
             'homeBtn': 'homeBtn',
+            
+            // Ayarlar
             'settingsTitle': 'settingsTitle',
             'languageLabel': 'languageLabel',
             'usernameLabel': 'usernameLabel',
             'themeLabel': 'themeLabel',
+            
+            // Coin Modal
             'coinModalTitle': 'coinModalTitle',
             'coinModalText': 'coinModalText',
             'watchAdButton': 'watchAdButton',
-            'adInfoText': 'adInfoText'
+            'adInfoText': 'adInfoText',
+
+            // Alt Menü
+            'shopBtnLabel': 'shopLabel',
+            'singlePlayerBtnLabel': 'singlePlayerLabel',
+            'multiPlayerBtnLabel': 'multiPlayerLabel',
+            'leaderboardBtnLabel': 'leaderboardLabel'
         };
-        
+
         for (const [elementId, translationKey] of Object.entries(elements)) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.textContent = this.getTranslation(translationKey);
+            // Bazı ID'ler etiketlere ait, bu yüzden try-catch kullanmak daha güvenli
+            try {
+                // Eğer ID sonunda 'Label' varsa, bu bir etiket olabilir
+                if (elementId.endsWith('Label')) {
+                    const btnId = elementId.replace('Label', '');
+                    document.querySelector(`#${btnId} .nav-label`).textContent = this.getTranslation(translationKey);
+                } else {
+                    document.getElementById(elementId).textContent = this.getTranslation(translationKey);
+                }
+            } catch (e) {
+                // Element bulunamazsa hata vermemesi için
             }
         }
         
-        // Update theme button texts
-        document.getElementById('lightTheme').textContent = this.getTranslation('lightTheme');
-        document.getElementById('darkTheme').textContent = this.getTranslation('darkTheme');
-        
-        // Update lives display
+        this.updateThemeButtons();
         this.updateLivesDisplay();
     }
     
-    getTranslation(key) {
-        const translations = window.translations[this.currentLanguage];
-        return translations && translations[key] ? translations[key] : key;
+    showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
     }
-    
-    startGame(gameType) {
-        if (!this.canPlayGame()) {
-            this.showNotification(this.getTranslation('noLivesLeft'), 'error');
-            return;
-        }
-        
-        this.currentGameType = gameType;
-        this.gameOverHandled = false;
-        this.showGameScreen();
-        
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Initialize game based on type
-        switch (gameType) {
-            case 'snake':
-                this.currentGame = new SnakeGame(canvas);
-                break;
-            case 'tetris':
-                this.currentGame = new TetrisGame(canvas);
-                break;
-            case 'memory':
-                this.currentGame = new MemoryGame(canvas);
-                break;
-            case 'tictactoe':
-                this.currentGame = new TicTacToeGame(canvas);
-                break;
-        }
-        
-        if (this.currentGame) {
-            this.currentGame.start();
-            this.updateGameTitle();
-        }
-    }
-    
-    showGameScreen() {
-        document.getElementById('homeScreen').classList.remove('active');
-        document.getElementById('gameOverScreen').classList.remove('active');
-        document.getElementById('gameScreen').classList.add('active');
-    }
-    
-    showHomeScreen() {
-        document.getElementById('gameScreen').classList.remove('active');
-        document.getElementById('gameOverScreen').classList.remove('active');
-        document.getElementById('homeScreen').classList.add('active');
-        
-        if (this.currentGame) {
-            this.currentGame = null;
-        }
-        
-        this.gameOverHandled = false;
-    }
-    
-    showGameOverScreen() {
-        document.getElementById('homeScreen').classList.remove('active');
-        document.getElementById('gameScreen').classList.remove('active');
-        document.getElementById('gameOverScreen').classList.add('active');
-    }
-    
-    updateGameTitle() {
-        const titles = {
-            snake: this.getTranslation('snakeTitle'),
-            tetris: this.getTranslation('tetrisTitle'),
-            memory: this.getTranslation('memoryTitle'),
-            tictactoe: this.getTranslation('tictactoeTitle')
-        };
-        
-        document.getElementById('currentGameTitle').textContent = titles[this.currentGameType] || this.getTranslation('gameTitle');
-    }
-    
-    updateScoreDisplay() {
-        if (this.currentGame) {
-            const score = this.currentGame.getScore();
-            document.getElementById('scoreDisplay').textContent = `${this.getTranslation('score')}: ${score}`;
-        }
-    }
-    
-    handleGameOver() {
-        if (this.currentGame) {
-            const finalScore = this.currentGame.getScore();
-            document.getElementById('finalScoreText').textContent = `${this.getTranslation('finalScore')}: ${finalScore}`;
-            
-            // Add to leaderboard
-            this.addToLeaderboard(finalScore);
-            
-            // Lose a life
-            this.loseLife();
-            
-            this.showGameOverScreen();
-        }
-    }
-    
-    restartCurrentGame() {
-        if (!this.canPlayGame()) {
-            this.showNotification(this.getTranslation('noLivesLeft'), 'error');
-            this.showHomeScreen();
-            return;
-        }
-        
-        if (this.currentGame) {
-            this.currentGame.restart();
-            this.showGameScreen();
-        }
-    }
-    
-    addToLeaderboard(score) {
-        const entry = {
-            player: this.playerName,
-            game: this.currentGameType,
-            score: score,
-            date: new Date().toISOString(),
-            timestamp: Date.now()
-        };
-        
-        this.leaderboard.push(entry);
-        
-        // Sort by score (descending)
-        this.leaderboard.sort((a, b) => b.score - a.score);
-        
-        // Keep only top 50 entries
-        this.leaderboard = this.leaderboard.slice(0, 50);
-        
-        this.saveLeaderboard();
-        this.updateLeaderboard();
-    }
-    
+
     loadLeaderboard() {
-        const saved = localStorage.getItem('miniGamesLeaderboard');
-        if (saved) {
-            try {
-                this.leaderboard = JSON.parse(saved);
-            } catch (e) {
-                this.leaderboard = [];
-            }
+        const savedLeaderboard = localStorage.getItem('miniGamesLeaderboard');
+        if (savedLeaderboard) {
+            this.leaderboard = JSON.parse(savedLeaderboard);
         }
     }
     
@@ -601,181 +495,43 @@ class MiniGamesApp {
         localStorage.setItem('miniGamesLeaderboard', JSON.stringify(this.leaderboard));
     }
     
+    addScoreToLeaderboard(player, score, game) {
+        this.leaderboard.push({ player, score, game });
+        this.leaderboard.sort((a, b) => b.score - a.score);
+        this.leaderboard = this.leaderboard.slice(0, 50); // En iyi 50 skoru tut
+        this.saveLeaderboard();
+        this.updateLeaderboard();
+    }
+    
     updateLeaderboard() {
-        const leaderboardList = document.getElementById('leaderboardList');
-        leaderboardList.innerHTML = '';
+        const list = document.getElementById('leaderboardList');
+        list.innerHTML = '';
         
-        // Get top 10 scores
-        const topScores = this.leaderboard.slice(0, 10);
-        
-        if (topScores.length === 0) {
-            leaderboardList.innerHTML = `<div class="leaderboard-item">
-                <span>${this.getTranslation('noScoresYet')}</span>
-            </div>`;
+        if (this.leaderboard.length === 0) {
+            list.innerHTML = `<div class="no-scores">${this.getTranslation('noScoresYet')}</div>`;
             return;
         }
         
-        topScores.forEach((entry, index) => {
+        this.leaderboard.forEach((entry, index) => {
             const item = document.createElement('div');
             item.className = 'leaderboard-item';
             
-            const rank = index + 1;
-            const rankEmoji = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}️⃣`;
-            
-            const gameNames = {
-                snake: this.getTranslation('snakeTitle'),
-                tetris: this.getTranslation('tetrisTitle'),
-                memory: this.getTranslation('memoryTitle'),
-                tictactoe: this.getTranslation('tictactoeTitle')
-            };
+            let rankClass = `rank-${index + 1}`;
+            if (index > 2) rankClass = '';
             
             item.innerHTML = `
-                <span class="rank">${rankEmoji}</span>
+                <div class="rank ${rankClass}">${index + 1}</div>
                 <div class="player-info">
                     <div class="player-name">${entry.player}</div>
-                    <div class="game-type">${gameNames[entry.game] || entry.game}</div>
+                    <div class="player-score">${this.getTranslation('score')}: ${entry.score} (${entry.game})</div>
                 </div>
-                <span class="score">${entry.score}</span>
             `;
-            
-            leaderboardList.appendChild(item);
+            list.appendChild(item);
         });
-    }
-    
-    showNotification(message, type = 'info') {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.textContent = message;
-        
-        // Add styles
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#667eea'};
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 10000;
-            animation: slideInRight 0.3s ease-out;
-            max-width: 300px;
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease-in';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
-    }
-    
-    shareScore(score) {
-        if (this.telegram) {
-            const gameName = this.getTranslation(`${this.currentGameType}Title`);
-            const message = `${this.getTranslation('shareScoreMessage')} ${gameName}: ${score}! 🎮`;
-            this.telegram.sendData(JSON.stringify({
-                action: 'share',
-                score: score,
-                game: this.currentGameType,
-                message: message
-            }));
-        }
     }
 }
 
-// Initialize app when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new MiniGamesApp();
-});
-
-// Add notification animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    
-    @keyframes slideOutRight {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-    
-    .light-theme {
-        --bg-color: #ffffff;
-        --text-color: #333333;
-        --card-bg: rgba(255, 255, 255, 0.95);
-    }
-    
-    .dark-theme {
-        --bg-color: #1a1a1a;
-        --text-color: #ffffff;
-        --card-bg: rgba(30, 30, 30, 0.95);
-    }
-    
-    .dark-theme .header {
-        background: rgba(30, 30, 30, 0.95);
-        border-bottom-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .dark-theme .app-title {
-        color: #ffffff;
-    }
-    
-    .dark-theme .game-card {
-        background: rgba(30, 30, 30, 0.95);
-        color: #ffffff;
-    }
-    
-    .dark-theme .game-card h3 {
-        color: #ffffff;
-    }
-    
-    .dark-theme .game-card p {
-        color: #cccccc;
-    }
-    
-    .dark-theme .leaderboard-section {
-        background: rgba(30, 30, 30, 0.95);
-        color: #ffffff;
-    }
-    
-    .dark-theme .leaderboard-section h3 {
-        color: #ffffff;
-    }
-    
-    .dark-theme .leaderboard-item {
-        border-bottom-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .dark-theme .leaderboard-item:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-`;
-document.head.appendChild(style);
-
-// Handle visibility change (pause when app is not visible)
-document.addEventListener('visibilitychange', () => {
-    if (window.miniGamesApp && window.miniGamesApp.currentGame) {
-        if (document.hidden) {
-            // App is hidden, pause the game
-            if (!window.miniGamesApp.currentGame.paused) {
-                window.miniGamesApp.currentGame.pause();
-            }
-        }
-    }
-});
-
-// Handle beforeunload (save state)
-window.addEventListener('beforeunload', () => {
-    if (window.miniGamesApp) {
-        window.miniGamesApp.saveLeaderboard();
-    }
+// Uygulamayı başlat
+window.addEventListener('load', () => {
+    window.app = new MiniGamesApp();
 }); 

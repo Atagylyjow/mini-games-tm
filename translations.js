@@ -1,46 +1,56 @@
 window.translations = {
     'tk': {
-        // Ana sayfa
-        'welcomeTitle': 'Hoş Geldiňiz!',
-        'welcomeText': 'Gyzykly mini oýunlary oýnaň we global reýtingde ýeriňizi alyň!',
-        
-        // Oyunlar
-        'snakeTitle': 'Ýylan',
-        'snakeDesc': 'Klassik ýylan oýuny',
-        'tetrisTitle': 'Tetris',
-        'tetrisDesc': 'Bloklary düzüň',
-        'memoryTitle': 'Ýat',
-        'memoryDesc': 'Kartlary gabatlaşdyryň',
-        'tictactoeTitle': 'XOX',
-        'tictactoeDesc': 'Klassik XOX oýuny',
-        
-        // Reytin
+        // Ana Menü
+        'logoTitle': 'Mini Oýunlar TM',
+        'logoSubtitle': 'Güýmenje Oýun Dünýäsi',
+        'totalGames': 'Jemi Oýun',
+        'bestScore': 'Iň Gowy Hasap',
+
+        // Alt Menü
+        'shopLabel': 'Dükan',
+        'singlePlayerLabel': 'Bir Oýunçy',
+        'multiPlayerLabel': 'Köp Oýunçy',
+        'leaderboardLabel': 'Reýting',
+
+        // Tek Oyunculu
+        'singlePlayerTitle': 'Bir Oýunçyly Oýunlar',
+        'bubbleShooterTitle': 'Bubble Shooter',
+        'bubbleShooterDesc': 'Reňkli şarlary ýaryp, bal gazan!',
+
+        // Çok Oyunculu
+        'multiPlayerTitle': 'Köp Oýunçyly Oýunlar',
+        'comingSoonTitle': 'Tiz Gelýär!',
+        'comingSoonText': 'Köp oýunçyly oýunlar tiz wagtda goşular. Bir oýunçyly oýunlary synap bilersiňiz!',
+        'trySinglePlayer': 'Bir Oýunçyly Oýna',
+
+        // Mağaza
+        'shopTitle': '🛍️ Dükan',
+
+        // Leaderboard
         'leaderboardTitle': '🏆 Global Reýting',
-        'noScoresYet': 'Heniz hasapla ýok',
-        
-        // Oyun ekranı
+        'noScoresYet': 'Heniz hasap ýok',
+
+        // Oyun
         'gameTitle': 'Oýun',
-        'score': 'Hasapla',
-        'finalScore': 'Jemi Hasapla',
+        'score': 'Hasap',
+        'finalScore': 'Jemi Hasap',
         'gameOverTitle': 'Oýun Gutardy!',
         'playAgainBtn': 'Ýene Oýna',
-        'homeBtn': 'Baş Sahypa',
-        
-        // Can sistemi
-        'livesFull': 'Canlar doly',
-        'livesRemaining': 'Galýan canlar',
-        'nextLife': 'Indiki can',
-        'lifeLost': '❌ 1 can ýitirildi!',
-        'lifeRegenerated': '❤️ 1 can täzelendi!',
-        'noLivesLeft': '❌ Canlaryňyz gutardy! 30 minutdan soň täzelener.',
-        
-        // Coin sistemi
-        'coinModalTitle': '🪙 Coin Kazan',
-        'coinModalText': 'Reklam izleyerek coin kazan!',
-        'watchAdButton': '📺 Reklam İzle (+1 Coin)',
-        'watchingAd': '📺 Reklam izleniyor...',
-        'adInfoText': 'Reklam izledikten sonra 1 coin kazanacaksın',
-        'coinsEarned': '🪙 {amount} coin kazandın!',
+        'homeBtn': 'Baş Menýu',
+
+        // Can ve Coin Sistemleri
+        'livesFull': 'Janlar doly',
+        'livesRemaining': 'Galan janlar',
+        'nextLife': 'Indiki jan',
+        'lifeLost': '❌ 1 jan ýitirildi!',
+        'lifeRegenerated': '❤️ 1 jan täzelendi!',
+        'noLivesLeft': '❌ Janlaryňyz gutardy! 30 minutdan soň täzelener.',
+        'coinModalTitle': '🪙 Teňňe Gazan',
+        'coinModalText': 'Mahabat görüp teňňe gazanyň!',
+        'watchAdButton': '📺 Mahabat Gör (+1 Teňňe)',
+        'watchingAd': '📺 Mahabat görülýär...',
+        'adInfoText': 'Mahabatdan soň 1 teňňe gazanarsyňyz',
+        'coinsEarned': '🪙 {amount} teňňe gazandyňyz!',
         
         // Ayarlar
         'settingsTitle': '⚙️ Sazlamalar',
@@ -53,46 +63,56 @@ window.translations = {
         'themeChanged': '✅ Tema üýtgedildi!'
     },
     'ru': {
-        // Главная страница
-        'welcomeTitle': 'Добро пожаловать!',
-        'welcomeText': 'Играйте в веселые мини-игры и займите свое место в глобальном рейтинге!',
-        
-        // Игры
-        'snakeTitle': 'Змейка',
-        'snakeDesc': 'Классическая игра змейка',
-        'tetrisTitle': 'Тетрис',
-        'tetrisDesc': 'Складывайте блоки',
-        'memoryTitle': 'Память',
-        'memoryDesc': 'Найдите пары карт',
-        'tictactoeTitle': 'Крестики-нолики',
-        'tictactoeDesc': 'Классическая игра XOX',
-        
+        // Главное меню
+        'logoTitle': 'Мини-Игры ТМ',
+        'logoSubtitle': 'Мир Веселых Игр',
+        'totalGames': 'Всего игр',
+        'bestScore': 'Лучший счет',
+
+        // Нижнее меню
+        'shopLabel': 'Магазин',
+        'singlePlayerLabel': 'Одиночная',
+        'multiPlayerLabel': 'Мультиплеер',
+        'leaderboardLabel': 'Рейтинг',
+
+        // Одиночная игра
+        'singlePlayerTitle': 'Одиночные игры',
+        'bubbleShooterTitle': 'Bubble Shooter',
+        'bubbleShooterDesc': 'Лопайте цветные шарики и зарабатывайте очки!',
+
+        // Мультиплеер
+        'multiPlayerTitle': 'Многопользовательские игры',
+        'comingSoonTitle': 'Скоро!',
+        'comingSoonText': 'Многопользовательские игры скоро появятся. А пока попробуйте одиночные!',
+        'trySinglePlayer': 'Играть в одиночную',
+
+        // Магазин
+        'shopTitle': '🛍️ Магазин',
+
         // Рейтинг
         'leaderboardTitle': '🏆 Глобальный рейтинг',
         'noScoresYet': 'Пока нет результатов',
-        
-        // Игровой экран
+
+        // Игра
         'gameTitle': 'Игра',
         'score': 'Счет',
-        'finalScore': 'Финальный счет',
+        'finalScore': 'Итоговый счет',
         'gameOverTitle': 'Игра окончена!',
         'playAgainBtn': 'Играть снова',
-        'homeBtn': 'Главная',
-        
-        // Система жизней
+        'homeBtn': 'Главное меню',
+
+        // Система жизней и монет
         'livesFull': 'Жизни полные',
         'livesRemaining': 'Осталось жизней',
         'nextLife': 'Следующая жизнь',
         'lifeLost': '❌ Потеряна 1 жизнь!',
         'lifeRegenerated': '❤️ Восстановлена 1 жизнь!',
         'noLivesLeft': '❌ У вас закончились жизни! Восстановятся через 30 минут.',
-        
-        // Система монет
         'coinModalTitle': '🪙 Заработать монеты',
         'coinModalText': 'Смотрите рекламу и зарабатывайте монеты!',
         'watchAdButton': '📺 Смотреть рекламу (+1 Монета)',
-        'watchingAd': '📺 Смотрим рекламу...',
-        'adInfoText': 'После просмотра рекламы вы получите 1 монету',
+        'watchingAd': '📺 Просмотр рекламы...',
+        'adInfoText': 'После просмотра вы получите 1 монету',
         'coinsEarned': '🪙 Вы заработали {amount} монет!',
         
         // Настройки
@@ -106,41 +126,51 @@ window.translations = {
         'themeChanged': '✅ Тема изменена!'
     },
     'tr': {
-        // Ana sayfa
-        'welcomeTitle': 'Hoş Geldiniz!',
-        'welcomeText': 'Eğlenceli mini oyunları oynayın ve global sıralamada yerinizi alın!',
-        
-        // Oyunlar
-        'snakeTitle': 'Snake',
-        'snakeDesc': 'Klasik yılan oyunu',
-        'tetrisTitle': 'Tetris',
-        'tetrisDesc': 'Blokları düzenleyin',
-        'memoryTitle': 'Hafıza',
-        'memoryDesc': 'Kartları eşleştirin',
-        'tictactoeTitle': 'Tic Tac Toe',
-        'tictactoeDesc': 'Klasik XOX oyunu',
-        
+        // Ana Menü
+        'logoTitle': 'Mini Oyunlar TM',
+        'logoSubtitle': 'Eğlenceli Oyun Dünyası',
+        'totalGames': 'Toplam Oyun',
+        'bestScore': 'En İyi Skor',
+
+        // Alt Menü
+        'shopLabel': 'Mağaza',
+        'singlePlayerLabel': 'Tek Oyunculu',
+        'multiPlayerLabel': 'Çok Oyunculu',
+        'leaderboardLabel': 'Sıralama',
+
+        // Tek Oyunculu
+        'singlePlayerTitle': 'Tek Oyunculu Oyunlar',
+        'bubbleShooterTitle': 'Bubble Shooter',
+        'bubbleShooterDesc': 'Renkli balonları patlat ve puan kazan!',
+
+        // Çok Oyunculu
+        'multiPlayerTitle': 'Çok Oyunculu Oyunlar',
+        'comingSoonTitle': 'Yakında Geliyor!',
+        'comingSoonText': 'Çok oyunculu oyunlar yakında eklenecek. Tek oyunculu oyunları deneyebilirsin!',
+        'trySinglePlayer': 'Tek Oyunculu Oyna',
+
+        // Mağaza
+        'shopTitle': '🛍️ Mağaza',
+
         // Sıralama
         'leaderboardTitle': '🏆 Global Sıralama',
         'noScoresYet': 'Henüz skor yok',
         
-        // Oyun ekranı
+        // Oyun
         'gameTitle': 'Oyun',
         'score': 'Skor',
         'finalScore': 'Final Skor',
         'gameOverTitle': 'Oyun Bitti!',
         'playAgainBtn': 'Tekrar Oyna',
-        'homeBtn': 'Ana Sayfa',
+        'homeBtn': 'Ana Menü',
         
-        // Can sistemi
+        // Can ve Coin Sistemleri
         'livesFull': 'Canlar dolu',
         'livesRemaining': 'Kalan canlar',
         'nextLife': 'Sonraki can',
         'lifeLost': '❌ 1 can kaybedildi!',
         'lifeRegenerated': '❤️ 1 can yenilendi!',
         'noLivesLeft': '❌ Canlarınız bitti! 30 dakika sonra yenilenecek.',
-        
-        // Coin sistemi
         'coinModalTitle': '🪙 Coin Kazan',
         'coinModalText': 'Reklam izleyerek coin kazan!',
         'watchAdButton': '📺 Reklam İzle (+1 Coin)',

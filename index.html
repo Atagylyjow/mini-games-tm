@@ -5,11 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Games TM</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="styles.css?v=4.0">
+    <link rel="stylesheet" href="styles.css?v=5.0">
     <script src='//libtl.com/sdk.js' data-zone='9505533' data-sdk='show_9505533'></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Yandex.RTB R-A-16067460-1 -->
+    <script>
+    window.yaContextCb.push(() => {
+        Ya.Context.AdvManager.render({
+            "blockId": "R-A-16067460-1",
+            "type": "fullscreen",
+            "platform": "touch"
+        })
+    })
+    </script>
     <div id="app">
         <!-- Header -->
         <header class="header">
@@ -48,6 +58,213 @@
                 </button>
             </div>
         </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Ana Menü Ekranı -->
+            <div id="mainMenuScreen" class="screen active">
+                <div class="main-menu-content">
+                    <div class="welcome-animation">
+                        <div class="game-logo">
+                            <div class="logo-icon">🎮</div>
+                            <h1 class="logo-title">Mini Games TM</h1>
+                            <div class="logo-subtitle">Eğlenceli Oyun Dünyası</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">🏆</div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="totalGames">0</div>
+                                <div class="stat-label">Toplam Oyun</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="bestScore">0</div>
+                                <div class="stat-label">En İyi Skor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tek Oyunculu Oyunlar Ekranı -->
+            <div id="singlePlayerScreen" class="screen">
+                <div class="screen-header">
+                    <button id="backToMain" class="back-btn">←</button>
+                    <h2 id="singlePlayerTitle">Tek Oyunculu Oyunlar</h2>
+                </div>
+                
+                <div class="games-grid">
+                    <div class="game-card" data-game="bubble-shooter">
+                        <div class="game-icon">🎯</div>
+                        <h3 id="bubbleShooterTitle">Bubble Shooter</h3>
+                        <p id="bubbleShooterDesc">Renkli balonları patlat ve puan kazan!</p>
+                        <div class="game-stats">
+                            <span class="high-score">En Yüksek: <span id="bubbleHighScore">0</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Çok Oyunculu Oyunlar Ekranı -->
+            <div id="multiPlayerScreen" class="screen">
+                <div class="screen-header">
+                    <button id="backToMain2" class="back-btn">←</button>
+                    <h2 id="multiPlayerTitle">Çok Oyunculu Oyunlar</h2>
+                </div>
+                
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">🚧</div>
+                    <h3 id="comingSoonTitle">Yakında Geliyor!</h3>
+                    <p id="comingSoonText">Çok oyunculu oyunlar yakında eklenecek. Tek oyunculu oyunları deneyebilirsin!</p>
+                    <button id="trySinglePlayer" class="btn primary">Tek Oyunculu Oyna</button>
+                </div>
+            </div>
+
+            <!-- Mağaza Ekranı -->
+            <div id="shopScreen" class="screen">
+                <div class="screen-header">
+                    <button id="backToMain3" class="back-btn">←</button>
+                    <h2 id="shopTitle">🛍️ Mağaza</h2>
+                </div>
+                
+                <div class="shop-content">
+                    <div class="shop-categories">
+                        <div class="category-tab active" data-category="powerups">
+                            <span class="category-icon">⚡</span>
+                            <span class="category-name">Güçlendiriciler</span>
+                        </div>
+                        <div class="category-tab" data-category="skins">
+                            <span class="category-icon">🎨</span>
+                            <span class="category-name">Temalar</span>
+                        </div>
+                        <div class="category-tab" data-category="lives">
+                            <span class="category-icon">❤️</span>
+                            <span class="category-name">Canlar</span>
+                        </div>
+                    </div>
+                    
+                    <div class="shop-items">
+                        <div class="shop-item" data-category="powerups">
+                            <div class="item-icon">💥</div>
+                            <div class="item-info">
+                                <h4>Bomba</h4>
+                                <p>Çevredeki tüm balonları patlatır</p>
+                                <div class="item-price">🪙 50</div>
+                            </div>
+                            <button class="buy-btn">Satın Al</button>
+                        </div>
+                        
+                        <div class="shop-item" data-category="powerups">
+                            <div class="item-icon">🎯</div>
+                            <div class="item-info">
+                                <h4>Hedef Vuruş</h4>
+                                <p>İstediğin balonu vur</p>
+                                <div class="item-price">🪙 30</div>
+                            </div>
+                            <button class="buy-btn">Satın Al</button>
+                        </div>
+                        
+                        <div class="shop-item" data-category="lives">
+                            <div class="item-icon">❤️</div>
+                            <div class="item-info">
+                                <h4>+3 Can</h4>
+                                <p>3 can ekle</p>
+                                <div class="item-price">🪙 100</div>
+                            </div>
+                            <button class="buy-btn">Satın Al</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Ekranı -->
+            <div id="leaderboardScreen" class="screen">
+                <div class="screen-header">
+                    <button id="backToMain4" class="back-btn">←</button>
+                    <h2 id="leaderboardTitle">🏆 Global Sıralama</h2>
+                </div>
+                
+                <div class="leaderboard-content">
+                    <div class="leaderboard-tabs">
+                        <div class="tab active" data-game="bubble-shooter">
+                            <span class="tab-icon">🎯</span>
+                            <span class="tab-name">Bubble Shooter</span>
+                        </div>
+                        <div class="tab" data-game="global">
+                            <span class="tab-icon">🌍</span>
+                            <span class="tab-name">Genel</span>
+                        </div>
+                    </div>
+                    
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <!-- Leaderboard items will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Oyun Ekranı -->
+            <div id="gameScreen" class="screen">
+                <div class="game-header">
+                    <button id="backToGames" class="back-btn">←</button>
+                    <h2 id="currentGameTitle">Oyun</h2>
+                    <div class="game-stats">
+                        <span id="scoreDisplay">Skor: 0</span>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <canvas id="gameCanvas"></canvas>
+                </div>
+
+                <div class="game-controls">
+                    <button id="pauseBtn" class="control-btn">⏸️</button>
+                    <button id="restartBtn" class="control-btn">🔄</button>
+                </div>
+            </div>
+
+            <!-- Oyun Bitti Ekranı -->
+            <div id="gameOverScreen" class="screen">
+                <div class="game-over-content">
+                    <h2 id="gameOverTitle">Oyun Bitti!</h2>
+                    <div class="final-score">
+                        <span id="finalScoreText">Final Skor: 0</span>
+                    </div>
+                    <div class="game-over-buttons">
+                        <button id="playAgainBtn" class="btn primary">Tekrar Oyna</button>
+                        <button id="homeBtn" class="btn secondary">Ana Menü</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sabit Alt Menü -->
+        <nav class="bottom-nav">
+            <button id="shopBtn" class="nav-btn">
+                <span class="nav-icon">🛍️</span>
+                <span class="nav-label">Mağaza</span>
+            </button>
+            
+            <div class="center-buttons">
+                <button id="singlePlayerBtn" class="nav-btn large">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Tek Oyunculu</span>
+                </button>
+                <button id="multiPlayerBtn" class="nav-btn large">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-label">Çok Oyunculu</span>
+                </button>
+            </div>
+            
+            <button id="leaderboardBtn" class="nav-btn">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-label">Sıralama</span>
+            </button>
+        </nav>
 
         <!-- Settings Modal -->
         <div id="settingsModal" class="modal">
@@ -108,88 +325,10 @@
                 </div>
             </div>
         </div>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Home Screen -->
-            <div id="homeScreen" class="screen active">
-                <div class="welcome-section">
-                    <h2 id="welcomeTitle">Hoş Geldiňiz!</h2>
-                    <p id="welcomeText">Gyzykly mini oýunlary oýnaň we global reýtingde ýeriňizi alyň!</p>
-                </div>
-
-                <div class="games-grid">
-                    <div class="game-card" data-game="snake">
-                        <div class="game-icon">🐍</div>
-                        <h3 id="snakeTitle">Ýylan</h3>
-                        <p id="snakeDesc">Klassik ýylan oýuny</p>
-                    </div>
-                    <div class="game-card" data-game="tetris">
-                        <div class="game-icon">🧩</div>
-                        <h3 id="tetrisTitle">Tetris</h3>
-                        <p id="tetrisDesc">Bloklary düzüň</p>
-                    </div>
-                    <div class="game-card" data-game="memory">
-                        <div class="game-icon">🧠</div>
-                        <h3 id="memoryTitle">Ýat</h3>
-                        <p id="memoryDesc">Kartlary gabatlaşdyryň</p>
-                    </div>
-                    <div class="game-card" data-game="tictactoe">
-                        <div class="game-icon">⭕</div>
-                        <h3 id="tictactoeTitle">XOX</h3>
-                        <p id="tictactoeDesc">Klassik XOX oýuny</p>
-                    </div>
-                </div>
-
-                <div class="leaderboard-section">
-                    <h3 id="leaderboardTitle">🏆 Global Reýting</h3>
-                    <div id="leaderboardList" class="leaderboard-list">
-                        <!-- Leaderboard items will be populated here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Game Screens -->
-            <div id="gameScreen" class="screen">
-                <div class="game-header">
-                    <button id="backToHome" class="back-btn">←</button>
-                    <h2 id="currentGameTitle">Oýun</h2>
-                    <div class="game-stats">
-                        <span id="scoreDisplay">Hasapla: 0</span>
-                    </div>
-                </div>
-                
-                <div class="game-container">
-                    <canvas id="gameCanvas"></canvas>
-                </div>
-
-                <div class="game-controls">
-                    <button id="pauseBtn" class="control-btn">⏸️</button>
-                    <button id="restartBtn" class="control-btn">🔄</button>
-                </div>
-            </div>
-
-            <!-- Game Over Screen -->
-            <div id="gameOverScreen" class="screen">
-                <div class="game-over-content">
-                    <h2 id="gameOverTitle">Oýun Gutardy!</h2>
-                    <div class="final-score">
-                        <span id="finalScoreText">Jemi Hasapla: 0</span>
-                    </div>
-                    <div class="game-over-buttons">
-                        <button id="playAgainBtn" class="btn primary">Ýene Oýna</button>
-                        <button id="homeBtn" class="btn secondary">Baş Sahypa</button>
-                    </div>
-                </div>
-            </div>
-        </main>
     </div>
 
-    <script src="translations.js?v=4.0"></script>
-    <script src="games/snake.js?v=4.0"></script>
-    <script src="games/tetris.js?v=4.0"></script>
-    <script src="games/memory.js?v=4.0"></script>
-    <script src="games/tictactoe.js?v=4.0"></script>
-    <script src="app.js?v=4.0"></script>
+    <script src="translations.js?v=5.0"></script>
+    <script src="games/bubble-shooter.js?v=5.0"></script>
+    <script src="app.js?v=5.0"></script>
 </body>
 </html> 
