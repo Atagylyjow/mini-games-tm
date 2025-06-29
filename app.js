@@ -258,6 +258,9 @@ class MiniGamesApp {
                 this.showGameInstructions('geometry-dash');
             });
         }
+        document.querySelector('.game-card[data-game="taptap-shots"]').addEventListener('click', () => {
+            this.showGameInstructions('taptap-shots');
+        });
 
         // Talimatlardan oyunu başlat
         const startGameBtn = document.getElementById('startGameFromInstructionsBtn');
@@ -426,6 +429,9 @@ class MiniGamesApp {
             switch (gameType) {
                 case 'geometry-dash':
                     this.currentGame = new GeometryDash(canvas);
+                    break;
+                case 'taptap-shots':
+                    this.currentGame = new TapTapShots(canvas);
                     break;
                 // Diğer oyunlar buraya eklenebilir
             }
@@ -642,6 +648,7 @@ class MiniGamesApp {
             // Yeni format: her oyun için ayrı liste
             this.leaderboard = {
                 'geometry-dash': [],
+                'taptap-shots': [],
                 'global': []
             };
         }

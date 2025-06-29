@@ -101,6 +101,18 @@ window.translations = {
             <h3>🏆 Kazanma Koşulu:</h3>
             <p>60 saniye içinde 1000 puan topla ve "Tebrikler!" mesajını gör!</p>
         `,
+        'taptapShotsTitle': 'Tap Tap Shots',
+        'taptapShotsDesc': 'Topu sektirerek potaya sok!',
+        'taptapShotsInstructions': `
+            <h3>🎮 Nasıl Oynanır:</h3>
+            <ul>
+                <li>🏀 Topu zıplatmak için ekrana dokun.</li>
+                <li>⏱️ Süre dolmadan topu potaya sok.</li>
+                <li>🎯 Her başarılı atıştan sonra potanın yeri değişir.</li>
+            </ul>
+            <h3>🏆 Kazanma Koşulu:</h3>
+            <p>Tek bir oyunda 10 başarılı atış yap.</p>
+        `
     },
     'ru': {
         // Главное меню
@@ -204,6 +216,18 @@ window.translations = {
             <h3>🏆 Kazanma Koşulu:</h3>
             <p>60 saniye içinde 1000 puan topla ve "Tebrikler!" mesajını gör!</p>
         `,
+        'taptapShotsTitle': 'Tap Tap Shots',
+        'taptapShotsDesc': 'Get the ball in the hoop!',
+        'taptapShotsInstructions': `
+            <h3>🎮 How to Play:</h3>
+            <ul>
+                <li>🏀 Tap the screen to make the ball jump.</li>
+                <li>⏱️ Get the ball in the hoop before the timer runs out.</li>
+                <li>🎯 The hoop's position changes after each successful shot.</li>
+            </ul>
+            <h3>🏆 Win Condition:</h3>
+            <p>Make 10 successful shots in a single game.</p>
+        `
     },
     'tr': {
         // Ana Menü
@@ -307,6 +331,18 @@ window.translations = {
             <h3>🏆 Kazanma Koşulu:</h3>
             <p>60 saniye içinde 1000 puan topla ve "Tebrikler!" mesajını gör!</p>
         `,
+        'taptapShotsTitle': 'Tap Tap Shots',
+        'taptapShotsDesc': 'Bring den Ball in den Korb!',
+        'taptapShotsInstructions': `
+            <h3>🎮 Spielanleitung:</h3>
+            <ul>
+                <li>🏀 Tippe auf den Bildschirm, um den Ball springen zu lassen.</li>
+                <li>⏱️ Bringe den Ball in den Korb, bevor die Zeit abläuft.</li>
+                <li>🎯 Die Position des Korbs ändert sich nach jedem erfolgreichen Wurf.</li>
+            </ul>
+            <h3>🏆 Gewinnbedingung:</h3>
+            <p>Mache 10 erfolgreiche Würfe in einem einzigen Spiel.</p>
+        `
     }
 };
 
