@@ -63,7 +63,7 @@ window.translations = {
         'coinModalText': 'Mahabat görüp teňňe gazanyň!',
         'watchAdButton': '📺 Mahabat Gör (+1 Teňňe)',
         'watchingAd': '📺 Mahabat görülýär...',
-        'adInfoText': 'Mahabatdan soň 1 teňňe gazanarsyňyz',
+        'adInfoText': 'Teklifi ziyaret ederek coin kazan!',
         'coinsEarned': '🪙 {amount} teňňe gazandyňyz!',
         
         // Ayarlar
@@ -189,7 +189,7 @@ window.translations = {
         'coinModalText': 'Смотрите рекламу и зарабатывайте монеты!',
         'watchAdButton': '📺 Смотреть рекламу (+1 Монета)',
         'watchingAd': '📺 Просмотр рекламы...',
-        'adInfoText': 'После просмотра вы получите 1 монету',
+        'adInfoText': 'Зарабатывайте монеты, посещая предложение!',
         'coinsEarned': '🪙 Вы заработали {amount} монет!',
         
         // Настройки
@@ -315,7 +315,7 @@ window.translations = {
         'coinModalText': 'Reklam izleyerek coin kazan!',
         'watchAdButton': '📺 Reklam İzle (+1 Coin)',
         'watchingAd': '📺 Reklam izleniyor...',
-        'adInfoText': 'Reklam izledikten sonra 1 coin kazanacaksın',
+        'adInfoText': 'Verdiene Münzen, indem du das Angebot besuchst!',
         'coinsEarned': '🪙 {amount} coin kazandın!',
         
         // Ayarlar

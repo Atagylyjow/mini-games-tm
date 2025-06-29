@@ -24,8 +24,6 @@ class MiniGamesApp {
         
         // Reklam sistemi
         this.adZoneId = '9505533'; // index.html'den gelen ana zone ID
-        this.adReady = false;
-        this.isAdPreloading = false;
         
         this.init();
     }
@@ -40,7 +38,6 @@ class MiniGamesApp {
         this.updateLeaderboard();
         this.updateLanguage();
         this.startLifeTimer();
-        this.setupInAppAds(); // In-App reklamları kur
         this.showScreen('mainMenuScreen');
     }
     
@@ -409,8 +406,7 @@ class MiniGamesApp {
             if (e.target.id === 'coinModal') this.closeCoinModal();
         });
         
-        // Ad watch
-        document.getElementById('watchAdBtn').addEventListener('click', () => this.watchAd());
+        // Offer visit
         document.getElementById('visitOfferBtn').addEventListener('click', () => this.visitOffer());
         
         // Language & Theme
@@ -503,7 +499,6 @@ class MiniGamesApp {
         document.getElementById('coinModal').classList.add('active');
         this.updateCoinDisplay();
         document.body.style.overflow = 'hidden';
-        this.preloadAd(); // Reklamı önceden yükle
     }
     
     closeCoinModal() {
@@ -511,77 +506,6 @@ class MiniGamesApp {
         document.body.style.overflow = '';
     }
     
-    preloadAd() {
-        if (this.adReady || this.isAdPreloading || typeof show_9505533 === 'undefined') {
-            return; // Zaten hazır, yükleniyor veya SDK yok
-        }
-
-        this.isAdPreloading = true;
-        const watchAdBtn = document.getElementById('watchAdBtn');
-        watchAdBtn.disabled = true;
-        watchAdBtn.innerHTML = `
-            <span class="spinner"></span>
-            ${this.getTranslation('loadingAd')}
-        `;
-        
-        console.log('Preloading Monetag ad...');
-        
-        show_9505533({ type: 'preload' })
-            .then(() => {
-                console.log('Ad preloaded successfully.');
-                this.adReady = true;
-                this.isAdPreloading = false;
-                watchAdBtn.disabled = false;
-                watchAdBtn.innerHTML = `📺 ${this.getTranslation('watchAdButton')}`;
-            })
-            .catch(() => {
-                console.error('Ad preload failed.');
-                this.isAdPreloading = false;
-                this.adReady = false;
-                watchAdBtn.disabled = true;
-                watchAdBtn.textContent = this.getTranslation('adFailed');
-            });
-    }
-
-    watchAd() {
-        const watchAdBtn = document.getElementById('watchAdBtn');
-        
-        if (!this.adReady) {
-            this.showNotification(this.getTranslation('adNotReady'), 'error');
-            // Tekrar yüklemeyi dene
-            this.adReady = false;
-            this.preloadAd();
-            return;
-        }
-
-        watchAdBtn.disabled = true;
-        watchAdBtn.innerHTML = `
-            <span class="spinner"></span>
-            ${this.getTranslation('watchingAd')}
-        `;
-
-        console.log('Showing Monetag ad...');
-        
-        show_9505533()
-            .then(() => {
-                console.log('User watched the ad.');
-                this.showNotification(this.getTranslation('coinsEarned').replace('{amount}', 1), 'success');
-                this.addCoins(1);
-                this.closeCoinModal();
-            })
-            .catch(() => {
-                console.log('Ad was skipped or failed to show.');
-                this.showNotification(this.getTranslation('adSkipped'), 'info');
-            })
-            .finally(() => {
-                // Reklam izlendikten veya kapatıldıktan sonra butonları sıfırla ve yeni reklam yükle
-                this.adReady = false;
-                watchAdBtn.disabled = false;
-                watchAdBtn.innerHTML = `📺 ${this.getTranslation('watchAdButton')}`;
-                this.preloadAd();
-            });
-    }
-
     visitOffer() {
         const visitOfferBtn = document.getElementById('visitOfferBtn');
         visitOfferBtn.disabled = true;
@@ -922,28 +846,5 @@ class MiniGamesApp {
         }
         localStorage.removeItem('unlimitedLivesEnd');
         return false;
-    }
-
-    setupInAppAds() {
-        if (typeof show_9505533 === 'undefined') {
-            console.log('Monetag SDK not found, skipping In-App ads.');
-            return;
-        }
-
-        console.log('Setting up In-App Interstitial ads...');
-        
-        // Kullanıcının istediği ayarlar: 30 dakikada 8 reklam, 3 dakika timeout
-        show_9505533({
-            type: 'inApp',
-            inAppSettings: {
-                frequency: 8,     // 30 dakikada en fazla 8 reklam göster
-                capping: 0.5,     // Oturum süresini 30 dakika (0.5 saat) olarak ayarla
-                interval: 60,     // Reklamlar arasında en az 60 saniye beklesin
-                timeout: 180,     // Uygulama açıldıktan 3 dakika (180 saniye) sonra ilk reklamı göstermeye başla
-                everyPage: false  // Oturum, uygulama kapatılana kadar devam etsin
-            }
-        });
-        
-        console.log('In-App Interstitial ads configured successfully.');
     }
 } 

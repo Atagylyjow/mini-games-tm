@@ -1231,7 +1231,6 @@ body.dark-theme {
     text-align: center;
 }
 
-.watch-ad-btn,
 .visit-offer-btn {
     display: flex;
     align-items: center;
@@ -1259,29 +1258,6 @@ body.dark-theme {
 
 .dark-theme .ad-info {
     color: #bdc3c7;
-}
-
-.watch-ad-btn .spinner {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-    margin-right: 8px;
-    vertical-align: middle;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.dark-theme .watch-ad-btn .spinner {
-    border-color: rgba(255, 255, 255, 0.3);
-    border-top-color: #fff;
 }
 
 /* Responsive Design */
