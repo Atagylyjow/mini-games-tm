@@ -208,11 +208,43 @@ class MiniGamesApp {
     }
     
     bindEvents() {
+        console.log('Binding events...');
+        
         // Alt menü butonları
-        document.getElementById('singlePlayerBtn').addEventListener('click', () => this.showScreen('singlePlayerScreen'));
-        document.getElementById('multiPlayerBtn').addEventListener('click', () => this.showScreen('multiPlayerScreen'));
-        document.getElementById('shopBtn').addEventListener('click', () => this.showScreen('shopScreen'));
-        document.getElementById('leaderboardBtn').addEventListener('click', () => this.showScreen('leaderboardScreen'));
+        const singlePlayerBtn = document.getElementById('singlePlayerBtn');
+        const multiPlayerBtn = document.getElementById('multiPlayerBtn');
+        const shopBtn = document.getElementById('shopBtn');
+        const leaderboardBtn = document.getElementById('leaderboardBtn');
+        
+        console.log('Buttons found:', { singlePlayerBtn, multiPlayerBtn, shopBtn, leaderboardBtn });
+        
+        if (singlePlayerBtn) {
+            singlePlayerBtn.addEventListener('click', () => {
+                console.log('Single player clicked');
+                this.showScreen('singlePlayerScreen');
+            });
+        }
+        
+        if (multiPlayerBtn) {
+            multiPlayerBtn.addEventListener('click', () => {
+                console.log('Multi player clicked');
+                this.showScreen('multiPlayerScreen');
+            });
+        }
+        
+        if (shopBtn) {
+            shopBtn.addEventListener('click', () => {
+                console.log('Shop clicked');
+                this.showScreen('shopScreen');
+            });
+        }
+        
+        if (leaderboardBtn) {
+            leaderboardBtn.addEventListener('click', () => {
+                console.log('Leaderboard clicked');
+                this.showScreen('leaderboardScreen');
+            });
+        }
         
         // Geri butonları
         document.getElementById('backToMain').addEventListener('click', () => this.showScreen('mainMenuScreen'));
@@ -229,38 +261,64 @@ class MiniGamesApp {
         });
         
         // Oyun kartı -> Talimatları göster
-        document.querySelector('.game-card[data-game="bubble-shooter"]').addEventListener('click', () => {
-            this.showGameInstructions('bubble-shooter');
-        });
+        const gameCard = document.querySelector('.game-card[data-game="bubble-shooter"]');
+        if (gameCard) {
+            gameCard.addEventListener('click', () => {
+                console.log('Bubble shooter game card clicked');
+                this.showGameInstructions('bubble-shooter');
+            });
+        }
 
         // Talimatlardan oyunu başlat
-        document.getElementById('startGameFromInstructionsBtn').addEventListener('click', () => {
-            const gameType = document.getElementById('startGameFromInstructionsBtn').dataset.game;
-            this.startGame(gameType);
-        });
+        const startGameBtn = document.getElementById('startGameFromInstructionsBtn');
+        if (startGameBtn) {
+            startGameBtn.addEventListener('click', () => {
+                console.log('Start game from instructions clicked');
+                const gameType = startGameBtn.dataset.game;
+                this.startGame(gameType);
+            });
+        }
 
         // Talimatlardan geri dön
-        document.getElementById('backToGamesFromInstructions').addEventListener('click', () => {
-            this.showScreen('singlePlayerScreen');
-        });
+        const backToGamesBtn = document.getElementById('backToGamesFromInstructions');
+        if (backToGamesBtn) {
+            backToGamesBtn.addEventListener('click', () => {
+                console.log('Back to games from instructions clicked');
+                this.showScreen('singlePlayerScreen');
+            });
+        }
 
         // Çok oyunculu ekranındaki buton
-        document.getElementById('trySinglePlayer').addEventListener('click', () => this.showScreen('singlePlayerScreen'));
+        const trySinglePlayerBtn = document.getElementById('trySinglePlayer');
+        if (trySinglePlayerBtn) {
+            trySinglePlayerBtn.addEventListener('click', () => {
+                console.log('Try single player clicked');
+                this.showScreen('singlePlayerScreen');
+            });
+        }
 
         // Game over butonları
-        document.getElementById('playAgainBtn').addEventListener('click', () => {
-            if (!this.canPlayGame()) {
-                this.showNotification(this.getTranslation('noLivesLeft'), 'error');
-                this.showScreen('mainMenuScreen');
-                return;
-            }
-            this.restartCurrentGame();
-        });
+        const playAgainBtn = document.getElementById('playAgainBtn');
+        if (playAgainBtn) {
+            playAgainBtn.addEventListener('click', () => {
+                console.log('Play again clicked');
+                if (!this.canPlayGame()) {
+                    this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+                    this.showScreen('mainMenuScreen');
+                    return;
+                }
+                this.restartCurrentGame();
+            });
+        }
         
-        document.getElementById('homeBtn').addEventListener('click', () => {
-            this.setGameMode(false);
-            this.showScreen('mainMenuScreen');
-        });
+        const homeBtn = document.getElementById('homeBtn');
+        if (homeBtn) {
+            homeBtn.addEventListener('click', () => {
+                console.log('Home clicked');
+                this.setGameMode(false);
+                this.showScreen('mainMenuScreen');
+            });
+        }
 
         // Ayarlar ve Coin Modalları
         this.bindModalEvents();
@@ -280,17 +338,34 @@ class MiniGamesApp {
         }, 100);
 
         // Lives modal event listeners
-        document.querySelector('.lives-display').addEventListener('click', () => this.openLivesModal());
-        document.getElementById('livesModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                this.closeLivesModal();
-            }
-        });
-        document.getElementById('closeLivesModal').addEventListener('click', () => this.closeLivesModal());
+        const livesDisplay = document.querySelector('.lives-display');
+        if (livesDisplay) {
+            livesDisplay.addEventListener('click', () => {
+                console.log('Lives display clicked');
+                this.openLivesModal();
+            });
+        }
+        
+        const livesModal = document.getElementById('livesModal');
+        if (livesModal) {
+            livesModal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    this.closeLivesModal();
+                }
+            });
+        }
+        
+        const closeLivesModalBtn = document.getElementById('closeLivesModal');
+        if (closeLivesModalBtn) {
+            closeLivesModalBtn.addEventListener('click', () => this.closeLivesModal());
+        }
         
         // Shop event listeners
-        document.querySelectorAll('.buy-btn').forEach(btn => {
+        const buyBtns = document.querySelectorAll('.buy-btn');
+        console.log('Buy buttons found:', buyBtns.length);
+        buyBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                console.log('Buy button clicked');
                 const item = btn.closest('.shop-item');
                 const itemType = item.dataset.type || 'lives';
                 const amount = parseInt(btn.dataset.lives) || 0;
@@ -304,6 +379,8 @@ class MiniGamesApp {
                 this.buyItem(itemType, amount, cost);
             });
         });
+        
+        console.log('Events bound successfully');
     }
     
     bindModalEvents() {
@@ -671,9 +748,4 @@ class MiniGamesApp {
         localStorage.removeItem('unlimitedLivesEnd');
         return false;
     }
-}
-
-// Uygulamayı başlat
-window.addEventListener('load', () => {
-    window.app = new MiniGamesApp();
-}); 
+} 
