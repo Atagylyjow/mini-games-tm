@@ -1231,36 +1231,30 @@ body.dark-theme {
     text-align: center;
 }
 
-.watch-ad-btn {
+.watch-ad-btn,
+.visit-offer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     width: 100%;
-    margin-bottom: 1rem;
-    background: #ffd700;
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 12px;
-    font-size: 1.1rem;
+    margin-bottom: 10px;
+    padding: 12px;
+    font-size: 1rem;
     font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.watch-ad-btn:hover {
-    background: #ffed4e;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+.visit-offer-btn {
+    background: #8e44ad;
 }
 
-.watch-ad-btn:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+.visit-offer-btn:hover {
+    background: #9b59b6;
 }
 
 .ad-info {
-    color: #666;
-    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .dark-theme .ad-info {

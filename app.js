@@ -411,6 +411,7 @@ class MiniGamesApp {
         
         // Ad watch
         document.getElementById('watchAdBtn').addEventListener('click', () => this.watchAd());
+        document.getElementById('visitOfferBtn').addEventListener('click', () => this.visitOffer());
         
         // Language & Theme
         document.getElementById('languageSelect').addEventListener('change', (e) => this.changeLanguage(e.target.value));
@@ -578,6 +579,28 @@ class MiniGamesApp {
                 watchAdBtn.disabled = false;
                 watchAdBtn.innerHTML = `📺 ${this.getTranslation('watchAdButton')}`;
                 this.preloadAd();
+            });
+    }
+
+    visitOffer() {
+        const visitOfferBtn = document.getElementById('visitOfferBtn');
+        visitOfferBtn.disabled = true;
+
+        console.log('Showing Monetag popup ad...');
+
+        show_9505533({ type: 'pop' })
+            .then(() => {
+                console.log('Popup attempt completed. Rewarding user.');
+                this.addCoins(2);
+                this.showNotification(this.getTranslation('offerVisited'), 'success');
+                this.closeCoinModal();
+            })
+            .catch(() => {
+                console.log('Popup ad failed to open.');
+                this.showNotification(this.getTranslation('offerFailed'), 'error');
+            })
+            .finally(() => {
+                visitOfferBtn.disabled = false;
             });
     }
     

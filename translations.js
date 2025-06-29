@@ -119,6 +119,8 @@ window.translations = {
         'adFailed': 'Reklam Yüklenemedi',
         'adNotReady': 'Reklam henüz hazır değil',
         'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+        'offerVisited': 'Teklif sayfasına yönlendirildin! +2 Coin kazandın.',
+        'offerFailed': 'Teklif sayfası açılamadı.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -243,6 +245,8 @@ window.translations = {
         'adFailed': 'Reklam Yüklenemedi',
         'adNotReady': 'Reklam henüz hazır değil',
         'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+        'offerVisited': 'Redirected to offer! +2 Coins earned.',
+        'offerFailed': 'Failed to open the offer page.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -367,6 +371,8 @@ window.translations = {
         'adFailed': 'Reklam Yüklenemedi',
         'adNotReady': 'Reklam henüz hazır değil',
         'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+        'offerVisited': 'Weitergeleitet zum Angebot! +2 Münzen verdient.',
+        'offerFailed': 'Fehler beim Öffnen der Angebotsseite.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -377,6 +383,8 @@ window.translations = {
         'adFailed': 'Ad Failed to Load',
         'adNotReady': 'Ad is not ready yet',
         'adSkipped': 'Ad skipped, no reward earned',
+        'offerVisited': 'Redirected to offer! +2 Coins earned.',
+        'offerFailed': 'Failed to open the offer page.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -387,6 +395,8 @@ window.translations = {
         'adFailed': 'Anzeige konnte nicht geladen werden',
         'adNotReady': 'Anzeige ist noch nicht bereit',
         'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+        'offerVisited': 'Weitergeleitet zum Angebot! +2 Münzen verdient.',
+        'offerFailed': 'Fehler beim Öffnen der Angebotsseite.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -397,6 +407,8 @@ window.translations = {
         'adFailed': 'Anzeige konnte nicht geladen werden',
         'adNotReady': 'Anzeige ist noch nicht bereit',
         'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+        'offerVisited': 'Redirected to offer! +2 Coins earned.',
+        'offerFailed': 'Failed to open the offer page.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -407,6 +419,8 @@ window.translations = {
         'adFailed': 'Anzeige konnte nicht geladen werden',
         'adNotReady': 'Anzeige ist noch nicht bereit',
         'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+        'offerVisited': 'Redirected to offer! +2 Coins earned.',
+        'offerFailed': 'Failed to open the offer page.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -417,6 +431,8 @@ window.translations = {
         'adFailed': 'Anzeige konnte nicht geladen werden',
         'adNotReady': 'Anzeige ist noch nicht bereit',
         'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+        'offerVisited': 'Redirected to offer! +2 Coins earned.',
+        'offerFailed': 'Failed to open the offer page.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -427,6 +443,8 @@ window.translations = {
         'adFailed': 'Anzeige konnte nicht geladen werden',
         'adNotReady': 'Anzeige ist noch nicht bereit',
         'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+        'offerVisited': 'Redirected to offer! +2 Coins earned.',
+        'offerFailed': 'Failed to open the offer page.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -437,6 +455,8 @@ window.translations = {
         'adFailed': 'Не удалось загрузить рекламу',
         'adNotReady': 'Реклама еще не готова',
         'adSkipped': 'Реклама пропущена, награда не получена',
+        'offerVisited': 'Перенаправлено на страницу предложения! +2 монеты заработано.',
+        'offerFailed': 'Не удалось открыть страницу предложения.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -447,6 +467,8 @@ window.translations = {
         'adFailed': 'Reklam Yüklenemedi',
         'adNotReady': 'Reklam henüz hazır değil',
         'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+        'offerVisited': 'Weitergeleitet zum Angebot! +2 Münzen verdient.',
+        'offerFailed': 'Fehler beim Öffnen der Angebotsseite.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
@@ -457,6 +479,8 @@ window.translations = {
         'adFailed': 'Reklam Yüklenemedi',
         'adNotReady': 'Reklam henüz hazır değil',
         'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+        'offerVisited': 'Redirected to offer! +2 Coins earned.',
+        'offerFailed': 'Failed to open the offer page.',
 
         // Alt Menü
         'shopBtnLabel': 'shopLabel'
