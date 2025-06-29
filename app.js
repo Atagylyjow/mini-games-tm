@@ -191,6 +191,20 @@ class MiniGamesApp {
         });
         document.getElementById(screenId).classList.add('active');
         this.activeScreen = screenId;
+
+        // Aktif menü butonunu güncelle
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        if (screenId === 'shopScreen') {
+            document.getElementById('shopBtn').classList.add('active');
+        } else if (screenId === 'singlePlayerScreen') {
+            document.getElementById('singlePlayerBtn').classList.add('active');
+        } else if (screenId === 'multiPlayerScreen') {
+            document.getElementById('multiPlayerBtn').classList.add('active');
+        } else if (screenId === 'leaderboardScreen') {
+            document.getElementById('leaderboardBtn').classList.add('active');
+        }
     }
     
     bindEvents() {
@@ -205,11 +219,29 @@ class MiniGamesApp {
         document.getElementById('backToMain2').addEventListener('click', () => this.showScreen('mainMenuScreen'));
         document.getElementById('backToMain3').addEventListener('click', () => this.showScreen('mainMenuScreen'));
         document.getElementById('backToMain4').addEventListener('click', () => this.showScreen('mainMenuScreen'));
-        document.getElementById('backToGames').addEventListener('click', () => this.showScreen('singlePlayerScreen'));
+        document.getElementById('backToGames').addEventListener('click', () => {
+            this.setGameMode(false);
+            this.showScreen('singlePlayerScreen');
+            if(this.currentGame) {
+                this.currentGame.pause();
+                this.currentGame = null;
+            }
+        });
         
-        // Oyun kartı
+        // Oyun kartı -> Talimatları göster
         document.querySelector('.game-card[data-game="bubble-shooter"]').addEventListener('click', () => {
-            this.startGame('bubble-shooter');
+            this.showGameInstructions('bubble-shooter');
+        });
+
+        // Talimatlardan oyunu başlat
+        document.getElementById('startGameFromInstructionsBtn').addEventListener('click', () => {
+            const gameType = document.getElementById('startGameFromInstructionsBtn').dataset.game;
+            this.startGame(gameType);
+        });
+
+        // Talimatlardan geri dön
+        document.getElementById('backToGamesFromInstructions').addEventListener('click', () => {
+            this.showScreen('singlePlayerScreen');
         });
 
         // Çok oyunculu ekranındaki buton
@@ -226,6 +258,7 @@ class MiniGamesApp {
         });
         
         document.getElementById('homeBtn').addEventListener('click', () => {
+            this.setGameMode(false);
             this.showScreen('mainMenuScreen');
         });
 
@@ -280,6 +313,7 @@ class MiniGamesApp {
         if (this.loseLife()) {
             this.gameOverHandled = false;
             this.currentGameType = gameType;
+            this.setGameMode(true);
             this.showScreen('gameScreen');
             
             const canvas = document.getElementById('gameCanvas');
@@ -302,6 +336,7 @@ class MiniGamesApp {
         if (this.currentGame) {
             if (!this.canPlayGame()) {
                 this.showNotification(this.getTranslation('noLivesLeft'), 'error');
+                this.setGameMode(false);
                 this.showScreen('mainMenuScreen');
                 return;
             }
@@ -309,6 +344,7 @@ class MiniGamesApp {
                 this.gameOverHandled = false;
                 this.currentGame.restart();
             } else {
+                this.setGameMode(false);
                 this.showScreen('mainMenuScreen');
             }
         }
@@ -317,6 +353,7 @@ class MiniGamesApp {
     handleGameOver(score) {
         this.addScoreToLeaderboard(this.playerName, score, this.currentGameType);
         document.getElementById('finalScoreText').textContent = `${this.getTranslation('finalScore')}: ${score}`;
+        this.setGameMode(false);
         this.showScreen('gameOverScreen');
     }
     
@@ -426,6 +463,9 @@ class MiniGamesApp {
             'gameOverTitle': 'gameOverTitle',
             'playAgainBtn': 'playAgainBtn',
             'homeBtn': 'homeBtn',
+            'instructionsTitle': 'instructionsTitle',
+            'startGameFromInstructionsBtn': 'startGameBtn',
+            'backToGamesFromInstructions': 'backBtn',
             
             // Ayarlar
             'settingsTitle': 'settingsTitle',
@@ -453,11 +493,12 @@ class MiniGamesApp {
                 if (elementId.endsWith('Label')) {
                     const btnId = elementId.replace('Label', '');
                     document.querySelector(`#${btnId} .nav-label`).textContent = this.getTranslation(translationKey);
-                } else {
+                } else if (document.getElementById(elementId)) {
                     document.getElementById(elementId).textContent = this.getTranslation(translationKey);
                 }
             } catch (e) {
                 // Element bulunamazsa hata vermemesi için
+                // console.warn(`Translation element not found: ${elementId}`);
             }
         }
         
@@ -528,6 +569,22 @@ class MiniGamesApp {
             `;
             list.appendChild(item);
         });
+    }
+
+    setGameMode(active) {
+        document.body.classList.toggle('game-mode-active', active);
+    }
+
+    showGameInstructions(gameType) {
+        const title = document.getElementById('instructionsTitle');
+        const text = document.getElementById('instructionsText');
+        const startBtn = document.getElementById('startGameFromInstructionsBtn');
+
+        title.textContent = this.getTranslation(`${gameType}Title`);
+        text.innerHTML = this.getTranslation(`${gameType}Instructions`);
+        startBtn.dataset.game = gameType;
+
+        this.showScreen('gameInstructionsScreen');
     }
 }
 

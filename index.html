@@ -91,6 +91,16 @@
                 </div>
             </div>
 
+            <!-- Oyun Talimatları Ekranı -->
+            <div id="gameInstructionsScreen" class="screen">
+                <div class="instructions-content">
+                    <h2 id="instructionsTitle"></h2>
+                    <div id="instructionsText"></div>
+                    <button id="startGameFromInstructionsBtn" class="btn primary">Oyuna Başla</button>
+                    <button id="backToGamesFromInstructions" class="btn secondary">Geri</button>
+                </div>
+            </div>
+
             <!-- Tek Oyunculu Oyunlar Ekranı -->
             <div id="singlePlayerScreen" class="screen">
                 <div class="screen-header">
@@ -248,21 +258,17 @@
                 <span class="nav-icon">🛍️</span>
                 <span class="nav-label">Mağaza</span>
             </button>
-            
-            <div class="center-buttons">
-                <button id="singlePlayerBtn" class="nav-btn large">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-label">Tek Oyunculu</span>
-                </button>
-                <button id="multiPlayerBtn" class="nav-btn large">
-                    <span class="nav-icon">👥</span>
-                    <span class="nav-label">Çok Oyunculu</span>
-                </button>
-            </div>
-            
+            <button id="singlePlayerBtn" class="nav-btn">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">Tek Oyunculu</span>
+            </button>
+            <button id="multiPlayerBtn" class="nav-btn">
+                <span class="nav-icon">👥</span>
+                <span class="nav-label">Çok Oyunculu</span>
+            </button>
             <button id="leaderboardBtn" class="nav-btn">
                 <span class="nav-icon">🏆</span>
-                <span class="nav-label">Sıralama</span>
+                <span class.nav-label">Sıralama</span>
             </button>
         </nav>
 
@@ -327,8 +333,8 @@
         </div>
     </div>
 
-    <script src="translations.js?v=5.0"></script>
-    <script src="games/bubble-shooter.js?v=5.0"></script>
-    <script src="app.js?v=5.0"></script>
+    <script src="translations.js?v=6.0"></script>
+    <script src="games/bubble-shooter.js?v=6.0"></script>
+    <script src="app.js?v=6.0"></script>
 </body>
 </html> 

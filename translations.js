@@ -16,12 +16,28 @@ window.translations = {
         'singlePlayerTitle': 'Bir Oýunçyly Oýunlar',
         'bubbleShooterTitle': 'Bubble Shooter',
         'bubbleShooterDesc': 'Reňkli şarlary ýaryp, bal gazan!',
+        'bubbleShooterInstructions': `
+            <h4>Maksat:</h4>
+            <p>Birmeňzeş reňkdäki 3 ýa-da has köp şary bir ýere getirip partladyň. Meýdany arassalamak esasy maksadyňyzdyr.</p>
+            <h4>Nädip oýnamaly:</h4>
+            <ul>
+                <li><strong>Nişan Almak:</strong> Ekrana basyň we barmagyňyzy süýşürip nişan alyň.</li>
+                <li><strong>Aýtmak:</strong> Barmagyňyzy aýyranyňyzda şar atylar.</li>
+                <li><strong>Partlatmak:</strong> Atylan şar, birmeňzeş reňkdäki 2 ýa-da has köp şara degende, olar partlar.</li>
+            </ul>
+            <h4>Maslahatlar:</h4>
+            <p>Diwardan sekdirip, ýetmesi kyn ýerlere ýetip bilersiňiz.</p>
+        `,
 
         // Çok Oyunculu
         'multiPlayerTitle': 'Köp Oýunçyly Oýunlar',
         'comingSoonTitle': 'Tiz Gelýär!',
         'comingSoonText': 'Köp oýunçyly oýunlar tiz wagtda goşular. Bir oýunçyly oýunlary synap bilersiňiz!',
         'trySinglePlayer': 'Bir Oýunçyly Oýna',
+        'playAgainBtn': 'Ýene Oýna',
+        'homeBtn': 'Baş Menýu',
+        'startGameBtn': 'Oýuna Başla',
+        'backBtn': 'Yza',
 
         // Mağaza
         'shopTitle': '🛍️ Dükan',
@@ -35,8 +51,6 @@ window.translations = {
         'score': 'Hasap',
         'finalScore': 'Jemi Hasap',
         'gameOverTitle': 'Oýun Gutardy!',
-        'playAgainBtn': 'Ýene Oýna',
-        'homeBtn': 'Baş Menýu',
 
         // Can ve Coin Sistemleri
         'livesFull': 'Janlar doly',
@@ -79,12 +93,28 @@ window.translations = {
         'singlePlayerTitle': 'Одиночные игры',
         'bubbleShooterTitle': 'Bubble Shooter',
         'bubbleShooterDesc': 'Лопайте цветные шарики и зарабатывайте очки!',
+        'bubbleShooterInstructions': `
+            <h4>Цель:</h4>
+            <p>Уничтожайте шарики, собирая группы из 3 или более шариков одного цвета. Ваша главная цель - очистить поле.</p>
+            <h4>Как играть:</h4>
+            <ul>
+                <li><strong>Прицеливание:</strong> Нажмите на экран и двигайте пальцем, чтобы прицелиться.</li>
+                <li><strong>Выстрел:</strong> Отпустите палец, чтобы выстрелить шариком.</li>
+                <li><strong>Уничтожение:</strong> Когда ваш шарик касается 2 или более шариков того же цвета, они лопаются.</li>
+            </ul>
+            <h4>Советы:</h4>
+            <p>Используйте рикошет от стен, чтобы добраться до труднодоступных мест.</p>
+        `,
 
         // Мультиплеер
         'multiPlayerTitle': 'Многопользовательские игры',
         'comingSoonTitle': 'Скоро!',
         'comingSoonText': 'Многопользовательские игры скоро появятся. А пока попробуйте одиночные!',
         'trySinglePlayer': 'Играть в одиночную',
+        'playAgainBtn': 'Играть снова',
+        'homeBtn': 'Главное меню',
+        'startGameBtn': 'Начать игру',
+        'backBtn': 'Назад',
 
         // Магазин
         'shopTitle': '🛍️ Магазин',
@@ -98,8 +128,6 @@ window.translations = {
         'score': 'Счет',
         'finalScore': 'Итоговый счет',
         'gameOverTitle': 'Игра окончена!',
-        'playAgainBtn': 'Играть снова',
-        'homeBtn': 'Главное меню',
 
         // Система жизней и монет
         'livesFull': 'Жизни полные',
@@ -142,12 +170,28 @@ window.translations = {
         'singlePlayerTitle': 'Tek Oyunculu Oyunlar',
         'bubbleShooterTitle': 'Bubble Shooter',
         'bubbleShooterDesc': 'Renkli balonları patlat ve puan kazan!',
+        'bubbleShooterInstructions': `
+            <h4>Amaç:</h4>
+            <p>Aynı renkteki 3 veya daha fazla balonu bir araya getirerek patlatın. Amacınız oyun alanını temizlemektir.</p>
+            <h4>Nasıl Oynanır:</h4>
+            <ul>
+                <li><strong>Nişan Alma:</strong> Ekrana dokunup parmağınızı hareket ettirerek nişan alın.</li>
+                <li><strong>Ateş Etme:</strong> Parmağınızı kaldırdığınızda balonu fırlatırsınız.</li>
+                <li><strong>Patlatma:</strong> Fırlattığınız balon, aynı renkteki 2 veya daha fazla balona dokunduğunda hepsi patlar.</li>
+            </ul>
+            <h4>İpuçları:</h4>
+            <p>Ulaşılması zor yerlere ulaşmak için duvarlardan sektirmeyi kullanabilirsiniz.</p>
+        `,
 
         // Çok Oyunculu
         'multiPlayerTitle': 'Çok Oyunculu Oyunlar',
         'comingSoonTitle': 'Yakında Geliyor!',
         'comingSoonText': 'Çok oyunculu oyunlar yakında eklenecek. Tek oyunculu oyunları deneyebilirsin!',
         'trySinglePlayer': 'Tek Oyunculu Oyna',
+        'playAgainBtn': 'Tekrar Oyna',
+        'homeBtn': 'Ana Menü',
+        'startGameBtn': 'Oyuna Başla',
+        'backBtn': 'Geri',
 
         // Mağaza
         'shopTitle': '🛍️ Mağaza',
@@ -161,9 +205,7 @@ window.translations = {
         'score': 'Skor',
         'finalScore': 'Final Skor',
         'gameOverTitle': 'Oyun Bitti!',
-        'playAgainBtn': 'Tekrar Oyna',
-        'homeBtn': 'Ana Menü',
-        
+
         // Can ve Coin Sistemleri
         'livesFull': 'Canlar dolu',
         'livesRemaining': 'Kalan canlar',
