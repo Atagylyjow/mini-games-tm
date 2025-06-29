@@ -1,12 +1,8 @@
 import os
 import logging
-from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from telegram.constants import ParseMode
-
-# Load environment variables
-load_dotenv()
 
 # Logging ayarları
 logging.basicConfig(
@@ -15,11 +11,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Bot token'ınızı buraya ekleyin
-BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
+# Bot token'ı
+BOT_TOKEN = "7870032876:AAHwvao_2fzRSGNPagXqpK9yaA3rDTJKGu0"
 
 # Web App URL'si (GitHub Pages için)
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://atagylyjow.github.io/mini-games-tm/")
+WEBAPP_URL = "https://atagylyjow.github.io/mini-games-tm/"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Bot başlatma komutu"""
@@ -154,7 +150,7 @@ async def about_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
 ✅ Mobil uyumlu
 
 *Lisans:* MIT License
-*GitHub:* https://github.com/yourusername/mini-games-tm
+*GitHub:* https://github.com/Atagylyjow/mini-games-tm
 
 Bu bot açık kaynak kodludur ve topluluk katkılarına açıktır!
     """
