@@ -285,11 +285,12 @@ class GeometryDash {
             this.ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
             this.ctx.fill();
             
-            // Coin parıltısı
+            // "C" harfi
             this.ctx.fillStyle = '#fff';
-            this.ctx.beginPath();
-            this.ctx.arc(coin.x - 3, coin.y - 3, 3, 0, Math.PI * 2);
-            this.ctx.fill();
+            this.ctx.font = 'bold 12px Arial';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillText('C', coin.x, coin.y);
         });
         
         // Skor ve süre
