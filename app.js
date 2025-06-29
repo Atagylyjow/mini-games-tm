@@ -40,6 +40,7 @@ class MiniGamesApp {
         this.updateLeaderboard();
         this.updateLanguage();
         this.startLifeTimer();
+        this.setupInAppAds(); // In-App reklamları kur
         this.showScreen('mainMenuScreen');
     }
     
@@ -898,5 +899,28 @@ class MiniGamesApp {
         }
         localStorage.removeItem('unlimitedLivesEnd');
         return false;
+    }
+
+    setupInAppAds() {
+        if (typeof show_9505533 === 'undefined') {
+            console.log('Monetag SDK not found, skipping In-App ads.');
+            return;
+        }
+
+        console.log('Setting up In-App Interstitial ads...');
+        
+        // Kullanıcının istediği ayarlar: 30 dakikada 8 reklam, 3 dakika timeout
+        show_9505533({
+            type: 'inApp',
+            inAppSettings: {
+                frequency: 8,     // 30 dakikada en fazla 8 reklam göster
+                capping: 0.5,     // Oturum süresini 30 dakika (0.5 saat) olarak ayarla
+                interval: 60,     // Reklamlar arasında en az 60 saniye beklesin
+                timeout: 180,     // Uygulama açıldıktan 3 dakika (180 saniye) sonra ilk reklamı göstermeye başla
+                everyPage: false  // Oturum, uygulama kapatılana kadar devam etsin
+            }
+        });
+        
+        console.log('In-App Interstitial ads configured successfully.');
     }
 } 
