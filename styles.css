@@ -29,7 +29,7 @@ body.dark-theme {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -67,6 +67,13 @@ body.dark-theme {
     border-radius: 25px;
     border: 2px solid #ff6b6b;
     box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lives-display:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
 .dark-theme .lives-display {
@@ -150,6 +157,29 @@ body.dark-theme {
 .next-life-timer #timerText {
     color: #ff6b6b;
     font-weight: 600;
+}
+
+/* Lives Modal */
+#livesModal .modal-content {
+    max-width: 400px;
+}
+
+#currentLivesInfo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#nextLifeInfo {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+}
+
+.dark-theme #nextLifeInfo {
+    color: #bdc3c7;
 }
 
 /* Coin System */
@@ -1394,4 +1424,19 @@ body.dark-theme {
 
 .game-mode-active .game-controls {
     bottom: 1rem;
+}
+
+/* Shop Items */
+.coming-soon-item {
+    opacity: 0.6;
+}
+
+.coming-soon-item .buy-btn {
+    background: #ccc !important;
+    cursor: not-allowed;
+}
+
+.coming-soon-item .buy-btn:hover {
+    transform: none !important;
+    box-shadow: none !important;
 } 

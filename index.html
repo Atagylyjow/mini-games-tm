@@ -34,12 +34,6 @@
                         </div>
                         <span class="lives-icon">❤️</span>
                     </div>
-                    <div class="lives-info">
-                        <div id="livesText" class="lives-text">Canlar dolu</div>
-                        <div id="nextLifeTimer" class="next-life-timer" style="display: none;">
-                            <span id="timerText">Sonraki can: 29:45</span>
-                        </div>
-                    </div>
                 </div>
                 
                 <div class="coin-system">
@@ -144,11 +138,7 @@
                 
                 <div class="shop-content">
                     <div class="shop-categories">
-                        <div class="category-tab active" data-category="powerups">
-                            <span class="category-icon">⚡</span>
-                            <span class="category-name">Güçlendiriciler</span>
-                        </div>
-                        <div class="category-tab" data-category="skins">
+                        <div class="category-tab active" data-category="skins">
                             <span class="category-icon">🎨</span>
                             <span class="category-name">Temalar</span>
                         </div>
@@ -159,34 +149,54 @@
                     </div>
                     
                     <div class="shop-items">
-                        <div class="shop-item" data-category="powerups">
-                            <div class="item-icon">💥</div>
+                        <div class="shop-item coming-soon-item" data-category="skins">
+                            <div class="item-icon">🎨</div>
                             <div class="item-info">
-                                <h4>Bomba</h4>
-                                <p>Çevredeki tüm balonları patlatır</p>
-                                <div class="item-price">🪙 50</div>
+                                <h4>Temalar</h4>
+                                <p>Yakında eklenecek!</p>
+                                <div class="item-price">-</div>
                             </div>
-                            <button class="buy-btn">Satın Al</button>
+                            <button class="buy-btn" disabled>Yakında</button>
                         </div>
-                        
-                        <div class="shop-item" data-category="powerups">
-                            <div class="item-icon">🎯</div>
-                            <div class="item-info">
-                                <h4>Hedef Vuruş</h4>
-                                <p>İstediğin balonu vur</p>
-                                <div class="item-price">🪙 30</div>
-                            </div>
-                            <button class="buy-btn">Satın Al</button>
-                        </div>
-                        
+
                         <div class="shop-item" data-category="lives">
                             <div class="item-icon">❤️</div>
                             <div class="item-info">
-                                <h4>+3 Can</h4>
-                                <p>3 can ekle</p>
-                                <div class="item-price">🪙 100</div>
+                                <h4>+1 Can</h4>
+                                <p>Anında 1 can ekle</p>
+                                <div class="item-price">🪙 3</div>
                             </div>
-                            <button class="buy-btn">Satın Al</button>
+                            <button class="buy-btn" data-cost="3" data-lives="1">Satın Al</button>
+                        </div>
+
+                        <div class="shop-item" data-category="lives">
+                            <div class="item-icon">❤️</div>
+                            <div class="item-info">
+                                <h4>+2 Can</h4>
+                                <p>Anında 2 can ekle</p>
+                                <div class="item-price">🪙 5</div>
+                            </div>
+                            <button class="buy-btn" data-cost="5" data-lives="2">Satın Al</button>
+                        </div>
+
+                        <div class="shop-item" data-category="lives">
+                            <div class="item-icon">❤️</div>
+                            <div class="item-info">
+                                <h4>+5 Can</h4>
+                                <p>Anında 5 can ekle</p>
+                                <div class="item-price">🪙 10</div>
+                            </div>
+                            <button class="buy-btn" data-cost="10" data-lives="5">Satın Al</button>
+                        </div>
+
+                        <div class="shop-item" data-category="lives">
+                            <div class="item-icon">⏰</div>
+                            <div class="item-info">
+                                <h4>Sınırsız Can (30 dk)</h4>
+                                <p>30 dakika boyunca sınırsız can</p>
+                                <div class="item-price">🪙 15</div>
+                            </div>
+                            <button class="buy-btn" data-cost="15" data-unlimited="30">Satın Al</button>
                         </div>
                     </div>
                 </div>
@@ -328,6 +338,20 @@
                             <small id="adInfoText">Reklam izledikten sonra 1 coin kazanacaksın</small>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lives Modal -->
+        <div id="livesModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="livesModalTitle">❤️ Canlar</h3>
+                    <button id="closeLivesModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="currentLivesInfo"></p>
+                    <p id="nextLifeInfo"></p>
                 </div>
             </div>
         </div>

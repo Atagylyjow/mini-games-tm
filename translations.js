@@ -74,7 +74,18 @@ window.translations = {
         'lightTheme': '☀️ Ýagty',
         'darkTheme': '🌙 Garaňky',
         'languageChanged': '✅ Dil üýtgedildi!',
-        'themeChanged': '✅ Tema üýtgedildi!'
+        'themeChanged': '✅ Tema üýtgedildi!',
+
+        // Lives Modal
+        'lives': 'Canlar',
+        'nextLifeIn': 'Sonraki can',
+        'livesFull': 'Canlarınız dolu!',
+        
+        // Shop
+        'insufficientCoins': 'Yetersiz coin! Reklam izleyerek coin kazanabilirsiniz.',
+        'livesPurchased': 'Can satın alındı',
+        'unlimitedLivesActivated': '30 dakika sınırsız can aktif!',
+        'comingSoon': 'Yakında gelecek!'
     },
     'ru': {
         // Главное меню
@@ -151,7 +162,18 @@ window.translations = {
         'lightTheme': '☀️ Светлая',
         'darkTheme': '🌙 Темная',
         'languageChanged': '✅ Язык изменен!',
-        'themeChanged': '✅ Тема изменена!'
+        'themeChanged': '✅ Тема изменена!',
+
+        // Lives Modal
+        'lives': 'Жизни',
+        'nextLifeIn': 'Следующая жизнь через',
+        'livesFull': 'Ваши жизни полны!',
+        
+        // Shop
+        'insufficientCoins': 'Недостаточно монет! Смотрите рекламу, чтобы заработать монеты.',
+        'livesPurchased': 'Жизни куплены',
+        'unlimitedLivesActivated': '30 минут безлимитных жизней активировано!',
+        'comingSoon': 'Скоро!'
     },
     'tr': {
         // Ana Menü
@@ -228,7 +250,18 @@ window.translations = {
         'lightTheme': '☀️ Açık',
         'darkTheme': '🌙 Koyu',
         'languageChanged': '✅ Dil değiştirildi!',
-        'themeChanged': '✅ Tema değiştirildi!'
+        'themeChanged': '✅ Tema değiştirildi!',
+
+        // Lives Modal
+        'lives': 'Leben',
+        'nextLifeIn': 'Nächstes Leben in',
+        'livesFull': 'Deine Leben sind voll!',
+        
+        // Shop
+        'insufficientCoins': 'Unzureichende Münzen! Schaue Werbung an, um Münzen zu verdienen.',
+        'livesPurchased': 'Leben gekauft',
+        'unlimitedLivesActivated': '30 Minuten unbegrenzte Leben aktiviert!',
+        'comingSoon': 'Demnächst verfügbar!'
     }
 };
 

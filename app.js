@@ -278,6 +278,15 @@ class MiniGamesApp {
                 this.updateScoreDisplay();
             }
         }, 100);
+
+        // Lives modal event listeners
+        document.querySelector('.lives-display').addEventListener('click', () => this.openLivesModal());
+        document.getElementById('livesModal').addEventListener('click', () => this.closeLivesModal());
+        
+        // Shop event listeners
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.buyItem(btn.closest('.shop-item').dataset.type, parseInt(btn.closest('.shop-item').dataset.amount), parseInt(btn.closest('.shop-item').dataset.cost)));
+        });
     }
     
     bindModalEvents() {
@@ -585,6 +594,64 @@ class MiniGamesApp {
         startBtn.dataset.game = gameType;
 
         this.showScreen('gameInstructionsScreen');
+    }
+
+    // Lives Modal Functions
+    openLivesModal() {
+        const modal = document.getElementById('livesModal');
+        const currentLivesInfo = document.getElementById('currentLivesInfo');
+        const nextLifeInfo = document.getElementById('nextLifeInfo');
+        
+        // Update modal content
+        currentLivesInfo.textContent = `${this.getTranslation('lives')}: ${this.lives}/${this.maxLives}`;
+        
+        if (this.lives < this.maxLives) {
+            const nextLifeTime = new Date(this.lastLifeLossTime + this.lifeRegenerationTime);
+            const timeUntilNext = nextLifeTime - Date.now();
+            const minutes = Math.floor(timeUntilNext / 60000);
+            const seconds = Math.floor((timeUntilNext % 60000) / 1000);
+            nextLifeInfo.textContent = `${this.getTranslation('nextLifeIn')}: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        } else {
+            nextLifeInfo.textContent = this.getTranslation('livesFull');
+        }
+        
+        modal.style.display = 'flex';
+    }
+
+    closeLivesModal() {
+        document.getElementById('livesModal').style.display = 'none';
+    }
+
+    // Shop Functions
+    buyItem(itemType, amount, cost) {
+        if (this.coins < cost) {
+            this.showNotification(this.getTranslation('insufficientCoins'), 'error');
+            return;
+        }
+        
+        this.coins -= cost;
+        this.updateCoinDisplay();
+        this.saveLives();
+        
+        if (itemType === 'lives') {
+            this.lives = Math.min(this.lives + amount, this.maxLives);
+            this.updateLivesDisplay();
+            this.showNotification(`${this.getTranslation('livesPurchased')}: +${amount}`, 'success');
+        } else if (itemType === 'unlimited') {
+            // 30 minutes unlimited lives
+            const unlimitedEndTime = Date.now() + (30 * 60 * 1000);
+            localStorage.setItem('unlimitedLivesEnd', unlimitedEndTime);
+            this.showNotification(this.getTranslation('unlimitedLivesActivated'), 'success');
+        }
+    }
+
+    checkUnlimitedLives() {
+        const unlimitedEnd = localStorage.getItem('unlimitedLivesEnd');
+        if (unlimitedEnd && Date.now() < parseInt(unlimitedEnd)) {
+            return true;
+        }
+        localStorage.removeItem('unlimitedLivesEnd');
+        return false;
     }
 }
 
