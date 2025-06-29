@@ -1,122 +1,114 @@
-const translations = {
-    tk: {
+window.translations = {
+    'tk': {
         // Ana sayfa
-        welcomeTitle: "Hoş Geldiňiz!",
-        welcomeText: "Gyzykly mini oýunlary oýnaň we global reýtingde ýeriňizi alyň!",
+        'welcomeTitle': 'Hoş Geldiňiz!',
+        'welcomeText': 'Gyzykly mini oýunlary oýnaň we global reýtingde ýeriňizi alyň!',
         
-        // Oyun başlıkları
-        snakeTitle: "Ýylan",
-        snakeDesc: "Klassik ýylan oýuny",
-        tetrisTitle: "Tetris",
-        tetrisDesc: "Bloklary düzüň",
-        memoryTitle: "Ýat",
-        memoryDesc: "Kartlary gabatlaşdyryň",
-        tictactoeTitle: "XOX",
-        tictactoeDesc: "Klassik XOX oýuny",
+        // Oyunlar
+        'snakeTitle': 'Ýylan',
+        'snakeDesc': 'Klassik ýylan oýuny',
+        'tetrisTitle': 'Tetris',
+        'tetrisDesc': 'Bloklary düzüň',
+        'memoryTitle': 'Ýat',
+        'memoryDesc': 'Kartlary gabatlaşdyryň',
+        'tictactoeTitle': 'XOX',
+        'tictactoeDesc': 'Klassik XOX oýuny',
         
-        // Sıralama
-        leaderboardTitle: "🏆 Global Reýting",
+        // Reytin
+        'leaderboardTitle': '🏆 Global Reýting',
+        'noScoresYet': 'Heniz hasapla ýok',
         
         // Oyun ekranı
-        currentGameTitle: "Oýun",
-        scoreDisplay: "Hasapla: {score}",
+        'gameTitle': 'Oýun',
+        'score': 'Hasapla',
+        'finalScore': 'Jemi Hasapla',
+        'gameOverTitle': 'Oýun Gutardy!',
+        'playAgainBtn': 'Ýene Oýna',
+        'homeBtn': 'Baş Sahypa',
         
-        // Oyun sonu
-        gameOverTitle: "Oýun Gutardy!",
-        finalScoreText: "Jemi Hasapla: {score}",
-        playAgainBtn: "Ýene Oýna",
-        homeBtn: "Baş Sahypa",
-        
-        // Genel
-        back: "Yza",
-        pause: "Duraklat",
-        resume: "Dowam Et",
-        restart: "Täzeden Başlat",
-        
-        // Mesajlar
-        newHighScore: "Täze Ýokary Hasapla!",
-        gamePaused: "Oýun Duraklatdy",
-        gameResumed: "Oýun Dowam Edýär"
+        // Ayarlar
+        'settingsTitle': '⚙️ Sazlamalar',
+        'languageLabel': '🌍 Dil:',
+        'usernameLabel': '👤 Ulanyjy ady:',
+        'themeLabel': '🎨 Tema:',
+        'lightTheme': '☀️ Ýagty',
+        'darkTheme': '🌙 Garaňky',
+        'languageChanged': '✅ Dil üýtgedildi!',
+        'themeChanged': '✅ Tema üýtgedildi!'
     },
-    
-    ru: {
+    'ru': {
         // Главная страница
-        welcomeTitle: "Добро пожаловать!",
-        welcomeText: "Играйте в веселые мини-игры и соревнуйтесь в глобальном рейтинге!",
+        'welcomeTitle': 'Добро пожаловать!',
+        'welcomeText': 'Играйте в веселые мини-игры и займите свое место в глобальном рейтинге!',
         
-        // Названия игр
-        snakeTitle: "Змейка",
-        snakeDesc: "Классическая игра змейка",
-        tetrisTitle: "Тетрис",
-        tetrisDesc: "Расположите блоки",
-        memoryTitle: "Память",
-        memoryDesc: "Найдите пары карт",
-        tictactoeTitle: "Крестики-нолики",
-        tictactoeDesc: "Классическая игра крестики-нолики",
+        // Игры
+        'snakeTitle': 'Змейка',
+        'snakeDesc': 'Классическая игра змейка',
+        'tetrisTitle': 'Тетрис',
+        'tetrisDesc': 'Складывайте блоки',
+        'memoryTitle': 'Память',
+        'memoryDesc': 'Найдите пары карт',
+        'tictactoeTitle': 'Крестики-нолики',
+        'tictactoeDesc': 'Классическая игра XOX',
         
         // Рейтинг
-        leaderboardTitle: "🏆 Глобальный рейтинг",
+        'leaderboardTitle': '🏆 Глобальный рейтинг',
+        'noScoresYet': 'Пока нет результатов',
         
         // Игровой экран
-        currentGameTitle: "Игра",
-        scoreDisplay: "Счет: {score}",
+        'gameTitle': 'Игра',
+        'score': 'Счет',
+        'finalScore': 'Финальный счет',
+        'gameOverTitle': 'Игра окончена!',
+        'playAgainBtn': 'Играть снова',
+        'homeBtn': 'Главная',
         
-        // Конец игры
-        gameOverTitle: "Игра окончена!",
-        finalScoreText: "Финальный счет: {score}",
-        playAgainBtn: "Играть снова",
-        homeBtn: "Главное меню",
-        
-        // Общее
-        back: "Назад",
-        pause: "Пауза",
-        resume: "Продолжить",
-        restart: "Перезапуск",
-        
-        // Сообщения
-        newHighScore: "Новый рекорд!",
-        gamePaused: "Игра приостановлена",
-        gameResumed: "Игра продолжается"
+        // Настройки
+        'settingsTitle': '⚙️ Настройки',
+        'languageLabel': '🌍 Язык:',
+        'usernameLabel': '👤 Имя пользователя:',
+        'themeLabel': '🎨 Тема:',
+        'lightTheme': '☀️ Светлая',
+        'darkTheme': '🌙 Темная',
+        'languageChanged': '✅ Язык изменен!',
+        'themeChanged': '✅ Тема изменена!'
     },
-    
-    tr: {
+    'tr': {
         // Ana sayfa
-        welcomeTitle: "Hoş Geldiniz!",
-        welcomeText: "Eğlenceli mini oyunları oynayın ve global sıralamada yerinizi alın!",
+        'welcomeTitle': 'Hoş Geldiniz!',
+        'welcomeText': 'Eğlenceli mini oyunları oynayın ve global sıralamada yerinizi alın!',
         
-        // Oyun başlıkları
-        snakeTitle: "Snake",
-        snakeDesc: "Klasik yılan oyunu",
-        tetrisTitle: "Tetris",
-        tetrisDesc: "Blokları düzenleyin",
-        memoryTitle: "Hafıza",
-        memoryDesc: "Kartları eşleştirin",
-        tictactoeTitle: "XOX",
-        tictactoeDesc: "Klasik XOX oyunu",
+        // Oyunlar
+        'snakeTitle': 'Snake',
+        'snakeDesc': 'Klasik yılan oyunu',
+        'tetrisTitle': 'Tetris',
+        'tetrisDesc': 'Blokları düzenleyin',
+        'memoryTitle': 'Hafıza',
+        'memoryDesc': 'Kartları eşleştirin',
+        'tictactoeTitle': 'Tic Tac Toe',
+        'tictactoeDesc': 'Klasik XOX oyunu',
         
         // Sıralama
-        leaderboardTitle: "🏆 Global Sıralama",
+        'leaderboardTitle': '🏆 Global Sıralama',
+        'noScoresYet': 'Henüz skor yok',
         
         // Oyun ekranı
-        currentGameTitle: "Oyun",
-        scoreDisplay: "Skor: {score}",
+        'gameTitle': 'Oyun',
+        'score': 'Skor',
+        'finalScore': 'Final Skor',
+        'gameOverTitle': 'Oyun Bitti!',
+        'playAgainBtn': 'Tekrar Oyna',
+        'homeBtn': 'Ana Sayfa',
         
-        // Oyun sonu
-        gameOverTitle: "Oyun Bitti!",
-        finalScoreText: "Final Skor: {score}",
-        playAgainBtn: "Tekrar Oyna",
-        homeBtn: "Ana Menü",
-        
-        // Genel
-        back: "Geri",
-        pause: "Duraklat",
-        resume: "Devam Et",
-        restart: "Yeniden Başlat",
-        
-        // Mesajlar
-        newHighScore: "Yeni Yüksek Skor!",
-        gamePaused: "Oyun Duraklatıldı",
-        gameResumed: "Oyun Devam Ediyor"
+        // Ayarlar
+        'settingsTitle': '⚙️ Ayarlar',
+        'languageLabel': '🌍 Dil:',
+        'usernameLabel': '👤 Kullanıcı Adı:',
+        'themeLabel': '🎨 Tema:',
+        'lightTheme': '☀️ Açık',
+        'darkTheme': '🌙 Koyu',
+        'languageChanged': '✅ Dil değiştirildi!',
+        'themeChanged': '✅ Tema değiştirildi!'
     }
 };
 

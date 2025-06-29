@@ -5,15 +5,19 @@ class MiniGamesApp {
         this.telegram = null;
         this.leaderboard = [];
         this.playerName = 'Player';
+        this.currentLanguage = 'tk'; // Varsayılan dil
+        this.currentTheme = 'light'; // Varsayılan tema
         
         this.init();
     }
     
     init() {
         this.initTelegram();
+        this.loadSettings();
         this.bindEvents();
         this.loadLeaderboard();
         this.updateLeaderboard();
+        this.updateLanguage();
     }
     
     initTelegram() {
@@ -30,13 +34,36 @@ class MiniGamesApp {
                 if (user.last_name) {
                     this.playerName += ' ' + user.last_name;
                 }
+                this.updateUsernameDisplay();
             }
             
-            // Set theme
+            // Set theme based on Telegram theme
             if (this.telegram.colorScheme === 'dark') {
-                document.body.classList.add('dark-theme');
+                this.setTheme('dark');
             }
         }
+    }
+    
+    loadSettings() {
+        // Load saved settings from localStorage
+        const savedLanguage = localStorage.getItem('miniGamesLanguage');
+        const savedTheme = localStorage.getItem('miniGamesTheme');
+        
+        if (savedLanguage) {
+            this.currentLanguage = savedLanguage;
+        }
+        if (savedTheme) {
+            this.currentTheme = savedTheme;
+        }
+        
+        // Update UI elements
+        document.getElementById('languageSelect').value = this.currentLanguage;
+        this.updateThemeButtons();
+    }
+    
+    saveSettings() {
+        localStorage.setItem('miniGamesLanguage', this.currentLanguage);
+        localStorage.setItem('miniGamesTheme', this.currentTheme);
     }
     
     bindEvents() {
@@ -76,6 +103,36 @@ class MiniGamesApp {
             this.showHomeScreen();
         });
         
+        // Settings modal events
+        document.getElementById('settingsBtn').addEventListener('click', () => {
+            this.openSettings();
+        });
+        
+        document.getElementById('closeSettings').addEventListener('click', () => {
+            this.closeSettings();
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('settingsModal').addEventListener('click', (e) => {
+            if (e.target.id === 'settingsModal') {
+                this.closeSettings();
+            }
+        });
+        
+        // Language change
+        document.getElementById('languageSelect').addEventListener('change', (e) => {
+            this.changeLanguage(e.target.value);
+        });
+        
+        // Theme buttons
+        document.getElementById('lightTheme').addEventListener('click', () => {
+            this.setTheme('light');
+        });
+        
+        document.getElementById('darkTheme').addEventListener('click', () => {
+            this.setTheme('dark');
+        });
+        
         // Check for game over
         setInterval(() => {
             if (this.currentGame && this.currentGame.isGameOver()) {
@@ -89,6 +146,97 @@ class MiniGamesApp {
                 this.updateScoreDisplay();
             }
         }, 100);
+    }
+    
+    openSettings() {
+        document.getElementById('settingsModal').classList.add('active');
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeSettings() {
+        document.getElementById('settingsModal').classList.remove('active');
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+    
+    changeLanguage(language) {
+        this.currentLanguage = language;
+        this.saveSettings();
+        this.updateLanguage();
+        
+        // Show notification
+        this.showNotification(this.getTranslation('languageChanged'), 'success');
+    }
+    
+    setTheme(theme) {
+        this.currentTheme = theme;
+        this.saveSettings();
+        
+        // Remove existing theme classes
+        document.body.classList.remove('light-theme', 'dark-theme');
+        
+        // Add new theme class
+        document.body.classList.add(`${theme}-theme`);
+        
+        // Update theme buttons
+        this.updateThemeButtons();
+        
+        // Show notification
+        this.showNotification(this.getTranslation('themeChanged'), 'success');
+    }
+    
+    updateThemeButtons() {
+        const lightBtn = document.getElementById('lightTheme');
+        const darkBtn = document.getElementById('darkTheme');
+        
+        lightBtn.classList.toggle('active', this.currentTheme === 'light');
+        darkBtn.classList.toggle('active', this.currentTheme === 'dark');
+    }
+    
+    updateUsernameDisplay() {
+        document.getElementById('usernameDisplay').textContent = this.playerName;
+    }
+    
+    updateLanguage() {
+        // Update all translatable elements
+        const elements = {
+            'welcomeTitle': 'welcomeTitle',
+            'welcomeText': 'welcomeText',
+            'snakeTitle': 'snakeTitle',
+            'snakeDesc': 'snakeDesc',
+            'tetrisTitle': 'tetrisTitle',
+            'tetrisDesc': 'tetrisDesc',
+            'memoryTitle': 'memoryTitle',
+            'memoryDesc': 'memoryDesc',
+            'tictactoeTitle': 'tictactoeTitle',
+            'tictactoeDesc': 'tictactoeDesc',
+            'leaderboardTitle': 'leaderboardTitle',
+            'currentGameTitle': 'currentGameTitle',
+            'gameOverTitle': 'gameOverTitle',
+            'playAgainBtn': 'playAgainBtn',
+            'homeBtn': 'homeBtn',
+            'settingsTitle': 'settingsTitle',
+            'languageLabel': 'languageLabel',
+            'usernameLabel': 'usernameLabel',
+            'themeLabel': 'themeLabel'
+        };
+        
+        for (const [elementId, translationKey] of Object.entries(elements)) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = this.getTranslation(translationKey);
+            }
+        }
+        
+        // Update theme button texts
+        document.getElementById('lightTheme').textContent = this.getTranslation('lightTheme');
+        document.getElementById('darkTheme').textContent = this.getTranslation('darkTheme');
+    }
+    
+    getTranslation(key) {
+        const translations = window.translations[this.currentLanguage];
+        return translations && translations[key] ? translations[key] : key;
     }
     
     startGame(gameType) {
@@ -147,26 +295,26 @@ class MiniGamesApp {
     
     updateGameTitle() {
         const titles = {
-            snake: 'Snake',
-            tetris: 'Tetris',
-            memory: 'Memory Game',
-            tictactoe: 'Tic Tac Toe'
+            snake: this.getTranslation('snakeTitle'),
+            tetris: this.getTranslation('tetrisTitle'),
+            memory: this.getTranslation('memoryTitle'),
+            tictactoe: this.getTranslation('tictactoeTitle')
         };
         
-        document.getElementById('currentGameTitle').textContent = titles[this.currentGameType] || 'Game';
+        document.getElementById('currentGameTitle').textContent = titles[this.currentGameType] || this.getTranslation('gameTitle');
     }
     
     updateScoreDisplay() {
         if (this.currentGame) {
             const score = this.currentGame.getScore();
-            document.getElementById('scoreDisplay').textContent = `Skor: ${score}`;
+            document.getElementById('scoreDisplay').textContent = `${this.getTranslation('score')}: ${score}`;
         }
     }
     
     handleGameOver() {
         if (this.currentGame) {
             const finalScore = this.currentGame.getScore();
-            document.getElementById('finalScoreText').textContent = `Final Skor: ${finalScore}`;
+            document.getElementById('finalScoreText').textContent = `${this.getTranslation('finalScore')}: ${finalScore}`;
             
             // Add to leaderboard
             this.addToLeaderboard(finalScore);
@@ -199,10 +347,7 @@ class MiniGamesApp {
         // Keep only top 50 entries
         this.leaderboard = this.leaderboard.slice(0, 50);
         
-        // Save to localStorage
         this.saveLeaderboard();
-        
-        // Update display
         this.updateLeaderboard();
     }
     
@@ -225,69 +370,161 @@ class MiniGamesApp {
         const leaderboardList = document.getElementById('leaderboardList');
         leaderboardList.innerHTML = '';
         
-        // Get top 10 entries
-        const topEntries = this.leaderboard.slice(0, 10);
+        // Get top 10 scores
+        const topScores = this.leaderboard.slice(0, 10);
         
-        if (topEntries.length === 0) {
-            leaderboardList.innerHTML = '<div class="leaderboard-item"><div class="player-info">Henüz skor yok</div></div>';
+        if (topScores.length === 0) {
+            leaderboardList.innerHTML = `<div class="leaderboard-item">
+                <span>${this.getTranslation('noScoresYet')}</span>
+            </div>`;
             return;
         }
         
-        topEntries.forEach((entry, index) => {
+        topScores.forEach((entry, index) => {
             const item = document.createElement('div');
             item.className = 'leaderboard-item';
             
+            const rank = index + 1;
+            const rankEmoji = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}️⃣`;
+            
             const gameNames = {
-                snake: 'Snake',
-                tetris: 'Tetris',
-                memory: 'Memory',
-                tictactoe: 'XOX'
+                snake: this.getTranslation('snakeTitle'),
+                tetris: this.getTranslation('tetrisTitle'),
+                memory: this.getTranslation('memoryTitle'),
+                tictactoe: this.getTranslation('tictactoeTitle')
             };
             
             item.innerHTML = `
-                <div class="rank">#${index + 1}</div>
+                <span class="rank">${rankEmoji}</span>
                 <div class="player-info">
                     <div class="player-name">${entry.player}</div>
                     <div class="game-type">${gameNames[entry.game] || entry.game}</div>
                 </div>
-                <div class="score">${entry.score}</div>
+                <span class="score">${entry.score}</span>
             `;
             
             leaderboardList.appendChild(item);
         });
     }
     
-    // Utility function to show notifications
     showNotification(message, type = 'info') {
-        if (this.telegram && this.telegram.showAlert) {
-            this.telegram.showAlert(message);
-        } else {
-            // Fallback for non-Telegram environment
-            alert(message);
-        }
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        
+        // Add styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#667eea'};
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            max-width: 300px;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease-in';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
     }
     
-    // Share score function
     shareScore(score) {
-        if (this.telegram && this.telegram.share) {
-            const gameNames = {
-                snake: 'Snake',
-                tetris: 'Tetris',
-                memory: 'Memory Game',
-                tictactoe: 'Tic Tac Toe'
-            };
-            
-            const message = `🎮 ${gameNames[this.currentGameType]} oyununda ${score} puan aldım! Mini Games TM'de oyna ve beni geç!`;
-            
-            this.telegram.share(message);
+        if (this.telegram) {
+            const gameName = this.getTranslation(`${this.currentGameType}Title`);
+            const message = `${this.getTranslation('shareScoreMessage')} ${gameName}: ${score}! 🎮`;
+            this.telegram.sendData(JSON.stringify({
+                action: 'share',
+                score: score,
+                game: this.currentGameType,
+                message: message
+            }));
         }
     }
 }
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.miniGamesApp = new MiniGamesApp();
+    new MiniGamesApp();
 });
+
+// Add notification animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOutRight {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    .light-theme {
+        --bg-color: #ffffff;
+        --text-color: #333333;
+        --card-bg: rgba(255, 255, 255, 0.95);
+    }
+    
+    .dark-theme {
+        --bg-color: #1a1a1a;
+        --text-color: #ffffff;
+        --card-bg: rgba(30, 30, 30, 0.95);
+    }
+    
+    .dark-theme .header {
+        background: rgba(30, 30, 30, 0.95);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .dark-theme .app-title {
+        color: #ffffff;
+    }
+    
+    .dark-theme .game-card {
+        background: rgba(30, 30, 30, 0.95);
+        color: #ffffff;
+    }
+    
+    .dark-theme .game-card h3 {
+        color: #ffffff;
+    }
+    
+    .dark-theme .game-card p {
+        color: #cccccc;
+    }
+    
+    .dark-theme .leaderboard-section {
+        background: rgba(30, 30, 30, 0.95);
+        color: #ffffff;
+    }
+    
+    .dark-theme .leaderboard-section h3 {
+        color: #ffffff;
+    }
+    
+    .dark-theme .leaderboard-item {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .dark-theme .leaderboard-item:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+`;
+document.head.appendChild(style);
 
 // Handle visibility change (pause when app is not visible)
 document.addEventListener('visibilitychange', () => {

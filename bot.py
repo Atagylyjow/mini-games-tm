@@ -52,7 +52,6 @@ Aşakdaky düwmä basyp oýunlary başladyň!
 /help - Bu kömek habaryny görkez
 /leaderboard - Iň ýokary hasaplalary görkez
 /about - Bot hakda maglumat
-/language - Dil saýla
 
 *Oýun Dolandyryşy:*
 • Ýylan: Ok düwmeleri arkaly ýöneltme
@@ -115,7 +114,9 @@ Bu bot açyk çeşme kody we jemgyýetçilik goşantlaryna açyk!
         """,
         'language_select': "🌍 *Dil saýlaň:*",
         'language_changed': "✅ Dil üýtgedildi: Türkmen",
-        'play_games': "🎮 Oýunlary Başlat"
+        'play_games': "🎮 Oýunlary Başlat",
+        'change_language': "🌍 Dil Üýtget",
+        'back_to_menu': "⬅️ Yza"
     },
     'ru': {
         'welcome': """
@@ -147,7 +148,6 @@ Bu bot açyk çeşme kody we jemgyýetçilik goşantlaryna açyk!
 /help - Показать это сообщение помощи
 /leaderboard - Показать лучшие счета
 /about - Информация о боте
-/language - Выбрать язык
 
 *Управление играми:*
 • Змейка: Направление стрелками
@@ -210,7 +210,9 @@ Bu bot açyk çeşme kody we jemgyýetçilik goşantlaryna açyk!
         """,
         'language_select': "🌍 *Выберите язык:*",
         'language_changed': "✅ Язык изменен: Русский",
-        'play_games': "🎮 Начать игры"
+        'play_games': "🎮 Начать игры",
+        'change_language': "🌍 Изменить язык",
+        'back_to_menu': "⬅️ Назад"
     },
     'tr': {
         'welcome': """
@@ -242,7 +244,6 @@ Aşağıdaki butona tıklayarak oyunları başlatın!
 /help - Bu yardım mesajını göster
 /leaderboard - En yüksek skorları göster
 /about - Bot hakkında bilgi
-/language - Dil seç
 
 *Oyun Kontrolleri:*
 • Snake: Ok tuşları ile yönlendirme
@@ -305,7 +306,9 @@ Bu bot açık kaynak kodludur ve topluluk katkılarına açıktır!
         """,
         'language_select': "🌍 *Dil seçin:*",
         'language_changed': "✅ Dil değiştirildi: Türkçe",
-        'play_games': "🎮 Oyunları Başlat"
+        'play_games': "🎮 Oyunları Başlat",
+        'change_language': "🌍 Dil Değiştir",
+        'back_to_menu': "⬅️ Geri"
     }
 }
 
@@ -317,6 +320,13 @@ def get_message(user_id, message_key):
     """Kullanıcının diline göre mesaj al"""
     lang = get_user_language(user_id)
     return bot_messages[lang][message_key]
+
+def get_main_menu_keyboard(user_id):
+    """Ana menü klavyesi"""
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton(get_message(user_id, 'play_games'), web_app=WebAppInfo(url=WEBAPP_URL))],
+        [InlineKeyboardButton(get_message(user_id, 'change_language'), callback_data="change_lang")]
+    ])
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Bot başlatma komutu"""
@@ -331,11 +341,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         name=user.first_name or 'Oyuncu'
     )
     
-    # Web App butonu
-    keyboard = [
-        [InlineKeyboardButton(get_message(user_id, 'play_games'), web_app=WebAppInfo(url=WEBAPP_URL))]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    # Ana menü klavyesi
+    reply_markup = get_main_menu_keyboard(user_id)
     
     if update.message:
         await update.message.reply_text(
@@ -352,9 +359,16 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     user_id = update.effective_user.id
     help_text = get_message(user_id, 'help')
     
+    # Ana menüye geri dön butonu
+    keyboard = [
+        [InlineKeyboardButton(get_message(user_id, 'back_to_menu'), callback_data="back_to_menu")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
     if update.message:
         await update.message.reply_text(
             help_text,
+            reply_markup=reply_markup,
             parse_mode=ParseMode.MARKDOWN
         )
 
@@ -366,8 +380,9 @@ async def leaderboard_command(update: Update, context: ContextTypes.DEFAULT_TYPE
     user_id = update.effective_user.id
     leaderboard_text = get_message(user_id, 'leaderboard')
     
+    # Ana menüye geri dön butonu
     keyboard = [
-        [InlineKeyboardButton(get_message(user_id, 'play_games'), web_app=WebAppInfo(url=WEBAPP_URL))]
+        [InlineKeyboardButton(get_message(user_id, 'back_to_menu'), callback_data="back_to_menu")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -386,35 +401,15 @@ async def about_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     user_id = update.effective_user.id
     about_text = get_message(user_id, 'about')
     
-    if update.message:
-        await update.message.reply_text(
-            about_text,
-            parse_mode=ParseMode.MARKDOWN
-        )
-
-async def language_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Dil seçme komutu"""
-    if not update.effective_user:
-        return
-    
-    user_id = update.effective_user.id
-    language_text = get_message(user_id, 'language_select')
-    
-    # Dil seçenekleri
+    # Ana menüye geri dön butonu
     keyboard = [
-        [
-            InlineKeyboardButton("🇹🇲 Türkmen", callback_data="lang_tk"),
-            InlineKeyboardButton("🇷🇺 Русский", callback_data="lang_ru")
-        ],
-        [
-            InlineKeyboardButton("🇹🇷 Türkçe", callback_data="lang_tr")
-        ]
+        [InlineKeyboardButton(get_message(user_id, 'back_to_menu'), callback_data="back_to_menu")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
     if update.message:
         await update.message.reply_text(
-            language_text,
+            about_text,
             reply_markup=reply_markup,
             parse_mode=ParseMode.MARKDOWN
         )
@@ -434,15 +429,54 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
             "🎮 Oyunlar açılıyor...\n\nWeb App yükleniyor, lütfen bekleyin...",
             parse_mode=ParseMode.MARKDOWN
         )
+    elif query.data == "change_lang":
+        # Dil seçme menüsü
+        language_text = get_message(user_id, 'language_select')
+        keyboard = [
+            [
+                InlineKeyboardButton("🇹🇲 Türkmen", callback_data="lang_tk"),
+                InlineKeyboardButton("🇷🇺 Русский", callback_data="lang_ru")
+            ],
+            [
+                InlineKeyboardButton("🇹🇷 Türkçe", callback_data="lang_tr")
+            ],
+            [
+                InlineKeyboardButton(get_message(user_id, 'back_to_menu'), callback_data="back_to_menu")
+            ]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        await query.edit_message_text(
+            language_text,
+            reply_markup=reply_markup,
+            parse_mode=ParseMode.MARKDOWN
+        )
+    elif query.data == "back_to_menu":
+        # Ana menüye geri dön
+        welcome_text = get_message(user_id, 'welcome').format(
+            name=update.effective_user.first_name or 'Oyuncu'
+        )
+        reply_markup = get_main_menu_keyboard(user_id)
+        
+        await query.edit_message_text(
+            welcome_text,
+            reply_markup=reply_markup,
+            parse_mode=ParseMode.MARKDOWN
+        )
     elif query.data and query.data.startswith("lang_"):
         # Dil değiştirme
         lang = query.data.split("_")[1]
         user_languages[user_id] = lang
         
-        # Dil değiştirildi mesajı
-        lang_names = {'tk': 'Türkmen', 'ru': 'Русский', 'tr': 'Türkçe'}
+        # Dil değiştirildi mesajı ve ana menüye geri dön
+        welcome_text = get_message(user_id, 'welcome').format(
+            name=update.effective_user.first_name or 'Oyuncu'
+        )
+        reply_markup = get_main_menu_keyboard(user_id)
+        
         await query.edit_message_text(
-            f"✅ Dil değiştirildi: {lang_names[lang]}",
+            welcome_text,
+            reply_markup=reply_markup,
             parse_mode=ParseMode.MARKDOWN
         )
 
@@ -456,7 +490,6 @@ def main() -> None:
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("leaderboard", leaderboard_command))
     application.add_handler(CommandHandler("about", about_command))
-    application.add_handler(CommandHandler("language", language_command))
     
     # Callback query handler
     application.add_handler(CallbackQueryHandler(button_callback))
@@ -466,6 +499,7 @@ def main() -> None:
     print(f"🌐 Web App URL: {WEBAPP_URL}")
     print("✅ Bot hazır! /start komutunu kullanın.")
     print("🌍 Desteklenen diller: Türkmen, Rus, Türk")
+    print("🎮 Ana menüde dil değiştirme butonu mevcut!")
     
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
