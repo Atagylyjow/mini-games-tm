@@ -85,7 +85,22 @@ window.translations = {
         'insufficientCoins': 'Yetersiz coin! Reklam izleyerek coin kazanabilirsiniz.',
         'livesPurchased': 'Can satın alındı',
         'unlimitedLivesActivated': '30 dakika sınırsız can aktif!',
-        'comingSoon': 'Yakında gelecek!'
+        'comingSoon': 'Yakında gelecek!',
+
+        // Oyunlar
+        'geometryDashTitle': 'Geometry Dash',
+        'geometryDashDesc': 'Engelleri atla ve coinleri topla!',
+        'geometryDashInstructions': `
+            <h3>🎮 Nasıl Oynanır:</h3>
+            <ul>
+                <li>🏃 Karakteri zıplatmak için ekrana dokun veya SPACE tuşuna bas</li>
+                <li>🪙 Sarı coinleri topla (50 puan)</li>
+                <li>⚠️ Kırmızı engellerden kaçın</li>
+                <li>🎯 60 saniye içinde 1000 puana ulaş</li>
+            </ul>
+            <h3>🏆 Kazanma Koşulu:</h3>
+            <p>60 saniye içinde 1000 puan topla ve "Tebrikler!" mesajını gör!</p>
+        `,
     },
     'ru': {
         // Главное меню
@@ -173,7 +188,22 @@ window.translations = {
         'insufficientCoins': 'Недостаточно монет! Смотрите рекламу, чтобы заработать монеты.',
         'livesPurchased': 'Жизни куплены',
         'unlimitedLivesActivated': '30 минут безлимитных жизней активировано!',
-        'comingSoon': 'Скоро!'
+        'comingSoon': 'Скоро!',
+
+        // Oyunlar
+        'geometryDashTitle': 'Geometry Dash',
+        'geometryDashDesc': 'Engelleri atla ve coinleri topla!',
+        'geometryDashInstructions': `
+            <h3>🎮 Nasıl Oynanır:</h3>
+            <ul>
+                <li>🏃 Karakteri zıplatmak için ekrana dokun veya SPACE tuşuna bas</li>
+                <li>🪙 Sarı coinleri topla (50 puan)</li>
+                <li>⚠️ Kırmızı engellerden kaçın</li>
+                <li>🎯 60 saniye içinde 1000 puana ulaş</li>
+            </ul>
+            <h3>🏆 Kazanma Koşulu:</h3>
+            <p>60 saniye içinde 1000 puan topla ve "Tebrikler!" mesajını gör!</p>
+        `,
     },
     'tr': {
         // Ana Menü
@@ -261,7 +291,22 @@ window.translations = {
         'insufficientCoins': 'Unzureichende Münzen! Schaue Werbung an, um Münzen zu verdienen.',
         'livesPurchased': 'Leben gekauft',
         'unlimitedLivesActivated': '30 Minuten unbegrenzte Leben aktiviert!',
-        'comingSoon': 'Demnächst verfügbar!'
+        'comingSoon': 'Demnächst verfügbar!',
+
+        // Oyunlar
+        'geometryDashTitle': 'Geometry Dash',
+        'geometryDashDesc': 'Engelleri atla ve coinleri topla!',
+        'geometryDashInstructions': `
+            <h3>🎮 Nasıl Oynanır:</h3>
+            <ul>
+                <li>🏃 Karakteri zıplatmak için ekrana dokun veya SPACE tuşuna bas</li>
+                <li>🪙 Sarı coinleri topla (50 puan)</li>
+                <li>⚠️ Kırmızı engellerden kaçın</li>
+                <li>🎯 60 saniye içinde 1000 puana ulaş</li>
+            </ul>
+            <h3>🏆 Kazanma Koşulu:</h3>
+            <p>60 saniye içinde 1000 puan topla ve "Tebrikler!" mesajını gör!</p>
+        `,
     }
 };
 

@@ -251,11 +251,11 @@ class MiniGamesApp {
         });
         
         // Oyun kartı -> Talimatları göster
-        const gameCard = document.querySelector('.game-card[data-game="bubble-shooter"]');
+        const gameCard = document.querySelector('.game-card[data-game="geometry-dash"]');
         if (gameCard) {
             gameCard.addEventListener('click', () => {
-                console.log('Bubble shooter game card clicked');
-                this.showGameInstructions('bubble-shooter');
+                console.log('Geometry Dash game card clicked');
+                this.showGameInstructions('geometry-dash');
             });
         }
 
@@ -370,6 +370,18 @@ class MiniGamesApp {
             });
         });
         
+        // Leaderboard tab event listeners
+        document.querySelectorAll('.leaderboard-tabs .tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Aktif tab'ı değiştir
+                document.querySelectorAll('.leaderboard-tabs .tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Leaderboard'u güncelle
+                this.updateLeaderboard();
+            });
+        });
+        
         console.log('Events bound successfully');
     }
     
@@ -412,8 +424,8 @@ class MiniGamesApp {
             const canvas = document.getElementById('gameCanvas');
             
             switch (gameType) {
-                case 'bubble-shooter':
-                    this.currentGame = new BubbleShooter(canvas);
+                case 'geometry-dash':
+                    this.currentGame = new GeometryDash(canvas);
                     break;
                 // Diğer oyunlar buraya eklenebilir
             }
@@ -444,7 +456,11 @@ class MiniGamesApp {
     }
     
     handleGameOver(score) {
-        this.addScoreToLeaderboard(this.playerName, score, this.currentGameType);
+        // Sadece oyun kazanıldığında leaderboard'a ekle
+        if (this.currentGame && this.currentGame.hasWon()) {
+            this.addWinToLeaderboard(this.playerName, this.currentGameType);
+        }
+        
         document.getElementById('finalScoreText').textContent = `${this.getTranslation('finalScore')}: ${score}`;
         this.setGameMode(false);
         this.showScreen('gameOverScreen');
@@ -622,6 +638,12 @@ class MiniGamesApp {
         const savedLeaderboard = localStorage.getItem('miniGamesLeaderboard');
         if (savedLeaderboard) {
             this.leaderboard = JSON.parse(savedLeaderboard);
+        } else {
+            // Yeni format: her oyun için ayrı liste
+            this.leaderboard = {
+                'geometry-dash': [],
+                'global': []
+            };
         }
     }
     
@@ -629,39 +651,107 @@ class MiniGamesApp {
         localStorage.setItem('miniGamesLeaderboard', JSON.stringify(this.leaderboard));
     }
     
-    addScoreToLeaderboard(player, score, game) {
-        this.leaderboard.push({ player, score, game });
-        this.leaderboard.sort((a, b) => b.score - a.score);
-        this.leaderboard = this.leaderboard.slice(0, 50); // En iyi 50 skoru tut
+    addWinToLeaderboard(player, game) {
+        // Oyun kazanma sayısını ekle
+        if (!this.leaderboard[game]) {
+            this.leaderboard[game] = [];
+        }
+        
+        // Oyuncuyu bul veya ekle
+        let playerEntry = this.leaderboard[game].find(entry => entry.player === player);
+        
+        if (playerEntry) {
+            playerEntry.wins++;
+            playerEntry.lastWin = Date.now();
+        } else {
+            playerEntry = {
+                player: player,
+                wins: 1,
+                lastWin: Date.now()
+            };
+            this.leaderboard[game].push(playerEntry);
+        }
+        
+        // Global listeye de ekle
+        let globalEntry = this.leaderboard.global.find(entry => entry.player === player);
+        if (globalEntry) {
+            globalEntry.wins++;
+            globalEntry.lastWin = Date.now();
+        } else {
+            globalEntry = {
+                player: player,
+                wins: 1,
+                lastWin: Date.now()
+            };
+            this.leaderboard.global.push(globalEntry);
+        }
+        
+        // Kazanma sayısına göre sırala
+        this.leaderboard[game].sort((a, b) => b.wins - a.wins);
+        this.leaderboard.global.sort((a, b) => b.wins - a.wins);
+        
+        // Her listede sadece ilk 10'u tut
+        this.leaderboard[game] = this.leaderboard[game].slice(0, 10);
+        this.leaderboard.global = this.leaderboard.global.slice(0, 10);
+        
         this.saveLeaderboard();
         this.updateLeaderboard();
     }
     
     updateLeaderboard() {
         const list = document.getElementById('leaderboardList');
+        const activeTab = document.querySelector('.leaderboard-tabs .tab.active');
+        const gameType = activeTab ? activeTab.dataset.game : 'geometry-dash';
+        
         list.innerHTML = '';
         
-        if (this.leaderboard.length === 0) {
+        const gameLeaderboard = this.leaderboard[gameType] || [];
+        
+        if (gameLeaderboard.length === 0) {
             list.innerHTML = `<div class="no-scores">${this.getTranslation('noScoresYet')}</div>`;
             return;
         }
         
-        this.leaderboard.forEach((entry, index) => {
+        gameLeaderboard.forEach((entry, index) => {
             const item = document.createElement('div');
             item.className = 'leaderboard-item';
             
             let rankClass = `rank-${index + 1}`;
             if (index > 2) rankClass = '';
             
+            const lastWinDate = new Date(entry.lastWin);
+            const timeAgo = this.getTimeAgo(lastWinDate);
+            
             item.innerHTML = `
                 <div class="rank ${rankClass}">${index + 1}</div>
                 <div class="player-info">
                     <div class="player-name">${entry.player}</div>
-                    <div class="player-score">${this.getTranslation('score')}: ${entry.score} (${entry.game})</div>
+                    <div class="player-stats">
+                        <span class="wins-count">🏆 ${entry.wins} kazanma</span>
+                        <span class="last-win">Son: ${timeAgo}</span>
+                    </div>
                 </div>
             `;
             list.appendChild(item);
         });
+    }
+    
+    getTimeAgo(date) {
+        const now = new Date();
+        const diffInSeconds = Math.floor((now - date) / 1000);
+        
+        if (diffInSeconds < 60) {
+            return `${diffInSeconds} saniye önce`;
+        } else if (diffInSeconds < 3600) {
+            const minutes = Math.floor(diffInSeconds / 60);
+            return `${minutes} dakika önce`;
+        } else if (diffInSeconds < 86400) {
+            const hours = Math.floor(diffInSeconds / 3600);
+            return `${hours} saat önce`;
+        } else {
+            const days = Math.floor(diffInSeconds / 86400);
+            return `${days} gün önce`;
+        }
     }
 
     setGameMode(active) {
