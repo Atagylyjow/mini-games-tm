@@ -34,6 +34,14 @@ window.translations = {
         'lifeRegenerated': '❤️ 1 can täzelendi!',
         'noLivesLeft': '❌ Canlaryňyz gutardy! 30 minutdan soň täzelener.',
         
+        // Coin sistemi
+        'coinModalTitle': '🪙 Coin Kazan',
+        'coinModalText': 'Reklam izleyerek coin kazan!',
+        'watchAdButton': '📺 Reklam İzle (+1 Coin)',
+        'watchingAd': '📺 Reklam izleniyor...',
+        'adInfoText': 'Reklam izledikten sonra 1 coin kazanacaksın',
+        'coinsEarned': '🪙 {amount} coin kazandın!',
+        
         // Ayarlar
         'settingsTitle': '⚙️ Sazlamalar',
         'languageLabel': '🌍 Dil:',
@@ -79,6 +87,14 @@ window.translations = {
         'lifeRegenerated': '❤️ Восстановлена 1 жизнь!',
         'noLivesLeft': '❌ У вас закончились жизни! Восстановятся через 30 минут.',
         
+        // Система монет
+        'coinModalTitle': '🪙 Заработать монеты',
+        'coinModalText': 'Смотрите рекламу и зарабатывайте монеты!',
+        'watchAdButton': '📺 Смотреть рекламу (+1 Монета)',
+        'watchingAd': '📺 Смотрим рекламу...',
+        'adInfoText': 'После просмотра рекламы вы получите 1 монету',
+        'coinsEarned': '🪙 Вы заработали {amount} монет!',
+        
         // Настройки
         'settingsTitle': '⚙️ Настройки',
         'languageLabel': '🌍 Язык:',
@@ -123,6 +139,14 @@ window.translations = {
         'lifeLost': '❌ 1 can kaybedildi!',
         'lifeRegenerated': '❤️ 1 can yenilendi!',
         'noLivesLeft': '❌ Canlarınız bitti! 30 dakika sonra yenilenecek.',
+        
+        // Coin sistemi
+        'coinModalTitle': '🪙 Coin Kazan',
+        'coinModalText': 'Reklam izleyerek coin kazan!',
+        'watchAdButton': '📺 Reklam İzle (+1 Coin)',
+        'watchingAd': '📺 Reklam izleniyor...',
+        'adInfoText': 'Reklam izledikten sonra 1 coin kazanacaksın',
+        'coinsEarned': '🪙 {amount} coin kazandın!',
         
         // Ayarlar
         'settingsTitle': '⚙️ Ayarlar',

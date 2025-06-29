@@ -18,6 +18,9 @@ class MiniGamesApp {
         // Game over kontrolü için flag
         this.gameOverHandled = false;
         
+        // Coin sistemi
+        this.coins = 0;
+        
         this.init();
     }
     
@@ -25,6 +28,7 @@ class MiniGamesApp {
         this.initTelegram();
         this.loadSettings();
         this.loadLives();
+        this.loadCoins();
         this.bindEvents();
         this.loadLeaderboard();
         this.updateLeaderboard();
@@ -101,6 +105,33 @@ class MiniGamesApp {
         }
     }
     
+    loadCoins() {
+        // Load coins from localStorage
+        const savedCoins = localStorage.getItem('miniGamesCoins');
+        if (savedCoins !== null) {
+            this.coins = parseInt(savedCoins);
+        }
+        this.updateCoinDisplay();
+    }
+    
+    saveCoins() {
+        localStorage.setItem('miniGamesCoins', this.coins.toString());
+    }
+    
+    addCoins(amount) {
+        this.coins += amount;
+        this.saveCoins();
+        this.updateCoinDisplay();
+        
+        // Show notification
+        this.showNotification(this.getTranslation('coinsEarned').replace('{amount}', amount), 'success');
+    }
+    
+    updateCoinDisplay() {
+        document.getElementById('coinCount').textContent = this.coins;
+        document.getElementById('currentCoinCount').textContent = this.coins;
+    }
+    
     startLifeTimer() {
         // Check for life regeneration every second
         this.lifeTimer = setInterval(() => {
@@ -149,14 +180,20 @@ class MiniGamesApp {
         const livesCount = document.getElementById('livesCount');
         const livesText = document.getElementById('livesText');
         const nextLifeTimer = document.getElementById('nextLifeTimer');
+        const livesBarFill = document.getElementById('livesBarFill');
         
-        livesCount.textContent = this.lives;
+        // Update can barı animasyonu
+        const fillPercentage = (this.lives / this.maxLives) * 100;
+        livesBarFill.style.width = `${fillPercentage}%`;
+        
+        // Update can sayısı
+        livesCount.textContent = `${this.lives}/${this.maxLives}`;
         
         if (this.lives >= this.maxLives) {
             livesText.textContent = this.getTranslation('livesFull');
             nextLifeTimer.style.display = 'none';
         } else {
-            livesText.textContent = `${this.getTranslation('livesRemaining')}: ${this.lives}/${this.maxLives}`;
+            livesText.textContent = this.getTranslation('livesRemaining');
             nextLifeTimer.style.display = 'block';
         }
     }
@@ -243,6 +280,27 @@ class MiniGamesApp {
             }
         });
         
+        // Coin modal events
+        document.getElementById('addCoinBtn').addEventListener('click', () => {
+            this.openCoinModal();
+        });
+        
+        document.getElementById('closeCoinModal').addEventListener('click', () => {
+            this.closeCoinModal();
+        });
+        
+        // Close coin modal when clicking outside
+        document.getElementById('coinModal').addEventListener('click', (e) => {
+            if (e.target.id === 'coinModal') {
+                this.closeCoinModal();
+            }
+        });
+        
+        // Watch ad button
+        document.getElementById('watchAdBtn').addEventListener('click', () => {
+            this.watchAd();
+        });
+        
         // Language change
         document.getElementById('languageSelect').addEventListener('change', (e) => {
             this.changeLanguage(e.target.value);
@@ -283,6 +341,34 @@ class MiniGamesApp {
         document.getElementById('settingsModal').classList.remove('active');
         // Restore body scroll
         document.body.style.overflow = '';
+    }
+    
+    openCoinModal() {
+        document.getElementById('coinModal').classList.add('active');
+        this.updateCoinDisplay();
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = 'hidden';
+    }
+    
+    closeCoinModal() {
+        document.getElementById('coinModal').classList.remove('active');
+        // Restore body scroll
+        document.body.style.overflow = '';
+    }
+    
+    watchAd() {
+        // Reklam izleme simülasyonu
+        const watchAdBtn = document.getElementById('watchAdBtn');
+        watchAdBtn.disabled = true;
+        watchAdBtn.textContent = this.getTranslation('watchingAd');
+        
+        // 3 saniye sonra coin ver
+        setTimeout(() => {
+            this.addCoins(1);
+            watchAdBtn.disabled = false;
+            watchAdBtn.textContent = this.getTranslation('watchAdButton');
+            this.closeCoinModal();
+        }, 3000);
     }
     
     changeLanguage(language) {
@@ -344,7 +430,11 @@ class MiniGamesApp {
             'settingsTitle': 'settingsTitle',
             'languageLabel': 'languageLabel',
             'usernameLabel': 'usernameLabel',
-            'themeLabel': 'themeLabel'
+            'themeLabel': 'themeLabel',
+            'coinModalTitle': 'coinModalTitle',
+            'coinModalText': 'coinModalText',
+            'watchAdButton': 'watchAdButton',
+            'adInfoText': 'adInfoText'
         };
         
         for (const [elementId, translationKey] of Object.entries(elements)) {

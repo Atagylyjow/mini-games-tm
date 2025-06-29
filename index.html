@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Games TM</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="styles.css?v=3.1">
+    <link rel="stylesheet" href="styles.css?v=4.0">
+    <script src='//libtl.com/sdk.js' data-zone='9505533' data-sdk='show_9505533'></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -15,7 +16,12 @@
             <div class="header-content">
                 <div class="lives-system">
                     <div class="lives-display">
-                        <span id="livesCount">5</span>
+                        <div class="lives-bar-container">
+                            <div class="lives-bar">
+                                <div id="livesBarFill" class="lives-bar-fill"></div>
+                                <span id="livesCount" class="lives-count">5/5</span>
+                            </div>
+                        </div>
                         <span class="lives-icon">❤️</span>
                     </div>
                     <div class="lives-info">
@@ -25,6 +31,15 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="coin-system">
+                    <div class="coin-display">
+                        <span class="coin-icon">🪙</span>
+                        <span id="coinCount" class="coin-count">0</span>
+                        <button id="addCoinBtn" class="add-coin-btn">+</button>
+                    </div>
+                </div>
+                
                 <button id="settingsBtn" class="settings-btn" title="Ayarlar">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"></circle>
@@ -61,6 +76,33 @@
                         <div class="theme-toggle">
                             <button id="lightTheme" class="theme-btn active">☀️ Açık</button>
                             <button id="darkTheme" class="theme-btn">🌙 Koyu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coin Modal -->
+        <div id="coinModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="coinModalTitle">🪙 Coin Kazan</h3>
+                    <button id="closeCoinModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="coin-info">
+                        <div class="current-coins">
+                            <span class="coin-icon-large">🪙</span>
+                            <span id="currentCoinCount" class="current-coin-count">0</span>
+                        </div>
+                        <p id="coinModalText">Reklam izleyerek coin kazan!</p>
+                    </div>
+                    <div class="coin-actions">
+                        <button id="watchAdBtn" class="btn primary watch-ad-btn">
+                            📺 Reklam İzle (+1 Coin)
+                        </button>
+                        <div class="ad-info">
+                            <small id="adInfoText">Reklam izledikten sonra 1 coin kazanacaksın</small>
                         </div>
                     </div>
                 </div>
@@ -143,11 +185,11 @@
         </main>
     </div>
 
-    <script src="translations.js?v=3.1"></script>
-    <script src="games/snake.js?v=3.1"></script>
-    <script src="games/tetris.js?v=3.1"></script>
-    <script src="games/memory.js?v=3.1"></script>
-    <script src="games/tictactoe.js?v=3.1"></script>
-    <script src="app.js?v=3.1"></script>
+    <script src="translations.js?v=4.0"></script>
+    <script src="games/snake.js?v=4.0"></script>
+    <script src="games/tetris.js?v=4.0"></script>
+    <script src="games/memory.js?v=4.0"></script>
+    <script src="games/tictactoe.js?v=4.0"></script>
+    <script src="app.js?v=4.0"></script>
 </body>
 </html> 
