@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
 
 # Web App URL'si (GitHub Pages için)
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://yourusername.github.io/mini-games-tm/")
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://atagylyjow.github.io/mini-games-tm/")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Bot başlatma komutu"""
