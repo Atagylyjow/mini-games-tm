@@ -112,7 +112,16 @@ window.translations = {
             </ul>
             <h3>🏆 Kazanma Koşulu:</h3>
             <p>Tek bir oyunda 10 başarılı atış yap.</p>
-        `
+        `,
+
+        // Reklam Durumları
+        'loadingAd': 'Reklam Yükleniyor...',
+        'adFailed': 'Reklam Yüklenemedi',
+        'adNotReady': 'Reklam henüz hazır değil',
+        'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
     },
     'ru': {
         // Главное меню
@@ -227,7 +236,16 @@ window.translations = {
             </ul>
             <h3>🏆 Win Condition:</h3>
             <p>Make 10 successful shots in a single game.</p>
-        `
+        `,
+
+        // Reklam Durumları
+        'loadingAd': 'Reklam Yükleniyor...',
+        'adFailed': 'Reklam Yüklenemedi',
+        'adNotReady': 'Reklam henüz hazır değil',
+        'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
     },
     'tr': {
         // Ana Menü
@@ -342,7 +360,106 @@ window.translations = {
             </ul>
             <h3>🏆 Gewinnbedingung:</h3>
             <p>Mache 10 erfolgreiche Würfe in einem einzigen Spiel.</p>
-        `
+        `,
+
+        // Reklam Durumları
+        'loadingAd': 'Reklam Yükleniyor...',
+        'adFailed': 'Reklam Yüklenemedi',
+        'adNotReady': 'Reklam henüz hazır değil',
+        'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'en': {
+        // Ad Statuses
+        'loadingAd': 'Loading Ad...',
+        'adFailed': 'Ad Failed to Load',
+        'adNotReady': 'Ad is not ready yet',
+        'adSkipped': 'Ad skipped, no reward earned',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'de': {
+        // Ad Statuses
+        'loadingAd': 'Anzeige wird geladen...',
+        'adFailed': 'Anzeige konnte nicht geladen werden',
+        'adNotReady': 'Anzeige ist noch nicht bereit',
+        'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'es': {
+        // Ad Statuses
+        'loadingAd': 'Anzeige wird geladen...',
+        'adFailed': 'Anzeige konnte nicht geladen werden',
+        'adNotReady': 'Anzeige ist noch nicht bereit',
+        'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'fr': {
+        // Ad Statuses
+        'loadingAd': 'Anzeige wird geladen...',
+        'adFailed': 'Anzeige konnte nicht geladen werden',
+        'adNotReady': 'Anzeige ist noch nicht bereit',
+        'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'it': {
+        // Ad Statuses
+        'loadingAd': 'Anzeige wird geladen...',
+        'adFailed': 'Anzeige konnte nicht geladen werden',
+        'adNotReady': 'Anzeige ist noch nicht bereit',
+        'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'pt': {
+        // Ad Statuses
+        'loadingAd': 'Anzeige wird geladen...',
+        'adFailed': 'Anzeige konnte nicht geladen werden',
+        'adNotReady': 'Anzeige ist noch nicht bereit',
+        'adSkipped': 'Anzeige übersprungen, keine Belohnung erhalten',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'ru': {
+        // Ad Statuses
+        'loadingAd': 'Загрузка рекламы...',
+        'adFailed': 'Не удалось загрузить рекламу',
+        'adNotReady': 'Реклама еще не готова',
+        'adSkipped': 'Реклама пропущена, награда не получена',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'tr': {
+        // Ad Statuses
+        'loadingAd': 'Reklam Yükleniyor...',
+        'adFailed': 'Reklam Yüklenemedi',
+        'adNotReady': 'Reklam henüz hazır değil',
+        'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
+    },
+    'zh': {
+        // Ad Statuses
+        'loadingAd': 'Reklam Yükleniyor...',
+        'adFailed': 'Reklam Yüklenemedi',
+        'adNotReady': 'Reklam henüz hazır değil',
+        'adSkipped': 'Reklam atlandı, ödül kazanılamadı',
+
+        // Alt Menü
+        'shopBtnLabel': 'shopLabel'
     }
 };
 

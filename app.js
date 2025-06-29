@@ -3,7 +3,7 @@ class MiniGamesApp {
         this.currentGame = null;
         this.currentGameType = null;
         this.telegram = null;
-        this.leaderboard = [];
+        this.leaderboard = {};
         this.playerName = 'Player';
         this.currentLanguage = 'tk'; // Varsayılan dil
         this.currentTheme = 'light'; // Varsayılan tema
@@ -21,6 +21,11 @@ class MiniGamesApp {
         
         // Coin sistemi
         this.coins = 0;
+        
+        // Reklam sistemi
+        this.adZoneId = '9505533'; // index.html'den gelen ana zone ID
+        this.adReady = false;
+        this.isAdPreloading = false;
         
         this.init();
     }
@@ -496,6 +501,7 @@ class MiniGamesApp {
         document.getElementById('coinModal').classList.add('active');
         this.updateCoinDisplay();
         document.body.style.overflow = 'hidden';
+        this.preloadAd(); // Reklamı önceden yükle
     }
     
     closeCoinModal() {
@@ -503,17 +509,75 @@ class MiniGamesApp {
         document.body.style.overflow = '';
     }
     
-    watchAd() {
+    preloadAd() {
+        if (this.adReady || this.isAdPreloading || typeof show_9505533 === 'undefined') {
+            return; // Zaten hazır, yükleniyor veya SDK yok
+        }
+
+        this.isAdPreloading = true;
         const watchAdBtn = document.getElementById('watchAdBtn');
         watchAdBtn.disabled = true;
-        watchAdBtn.textContent = this.getTranslation('watchingAd');
+        watchAdBtn.innerHTML = `
+            <span class="spinner"></span>
+            ${this.getTranslation('loadingAd')}
+        `;
         
-        setTimeout(() => {
-            this.addCoins(1);
-            watchAdBtn.disabled = false;
-            watchAdBtn.textContent = this.getTranslation('watchAdButton');
-            this.closeCoinModal();
-        }, 3000);
+        console.log('Preloading Monetag ad...');
+        
+        show_9505533({ type: 'preload' })
+            .then(() => {
+                console.log('Ad preloaded successfully.');
+                this.adReady = true;
+                this.isAdPreloading = false;
+                watchAdBtn.disabled = false;
+                watchAdBtn.innerHTML = `📺 ${this.getTranslation('watchAdButton')}`;
+            })
+            .catch(() => {
+                console.error('Ad preload failed.');
+                this.isAdPreloading = false;
+                this.adReady = false;
+                watchAdBtn.disabled = true;
+                watchAdBtn.textContent = this.getTranslation('adFailed');
+            });
+    }
+
+    watchAd() {
+        const watchAdBtn = document.getElementById('watchAdBtn');
+        
+        if (!this.adReady) {
+            this.showNotification(this.getTranslation('adNotReady'), 'error');
+            // Tekrar yüklemeyi dene
+            this.adReady = false;
+            this.preloadAd();
+            return;
+        }
+
+        watchAdBtn.disabled = true;
+        watchAdBtn.innerHTML = `
+            <span class="spinner"></span>
+            ${this.getTranslation('watchingAd')}
+        `;
+
+        console.log('Showing Monetag ad...');
+        
+        show_9505533()
+            .then(() => {
+                console.log('User watched the ad.');
+                this.showNotification(this.getTranslation('coinsEarned').replace('{amount}', 1), 'success');
+                this.addCoins(1);
+                this.closeCoinModal();
+            })
+            .catch(() => {
+                console.log('Ad was skipped or failed to show.');
+                this.showNotification(this.getTranslation('adSkipped'), 'info');
+            })
+            .finally(() => {
+                // Reklam izlendikten veya kapatıldıktan sonra butonları sıfırla ve yeni reklam yükle
+                this.adReady = false;
+                watchAdBtn.disabled = false;
+                watchAdBtn.innerHTML = `📺 ${this.getTranslation('watchAdButton')}`;
+                this.preloadAd();
+            });
     }
     
     changeLanguage(language) {
