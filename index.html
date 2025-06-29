@@ -7,14 +7,18 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="styles.css?v=5.0">
     <script src='//libtl.com/sdk.js' data-zone='9505533' data-sdk='show_9505533'></script>
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Yandex.RTB R-A-16067460-1 -->
+        <!-- Yandex.RTB R-A-16067734-1 -->
     <script>
     window.yaContextCb.push(() => {
         Ya.Context.AdvManager.render({
-            "blockId": "R-A-16067460-1",
+            "blockId": "R-A-16067734-1",
             "type": "fullscreen",
             "platform": "touch"
         })
@@ -159,7 +163,7 @@
                             <button class="buy-btn" disabled>Yakında</button>
                         </div>
 
-                        <div class="shop-item" data-category="lives">
+                        <div class="shop-item" data-category="lives" data-type="lives">
                             <div class="item-icon">❤️</div>
                             <div class="item-info">
                                 <h4>+1 Can</h4>
@@ -169,7 +173,7 @@
                             <button class="buy-btn" data-cost="3" data-lives="1">Satın Al</button>
                         </div>
 
-                        <div class="shop-item" data-category="lives">
+                        <div class="shop-item" data-category="lives" data-type="lives">
                             <div class="item-icon">❤️</div>
                             <div class="item-info">
                                 <h4>+2 Can</h4>
@@ -179,7 +183,7 @@
                             <button class="buy-btn" data-cost="5" data-lives="2">Satın Al</button>
                         </div>
 
-                        <div class="shop-item" data-category="lives">
+                        <div class="shop-item" data-category="lives" data-type="lives">
                             <div class="item-icon">❤️</div>
                             <div class="item-info">
                                 <h4>+5 Can</h4>
@@ -189,7 +193,7 @@
                             <button class="buy-btn" data-cost="10" data-lives="5">Satın Al</button>
                         </div>
 
-                        <div class="shop-item" data-category="lives">
+                        <div class="shop-item" data-category="lives" data-type="unlimited">
                             <div class="item-icon">⏰</div>
                             <div class="item-info">
                                 <h4>Sınırsız Can (30 dk)</h4>
@@ -278,7 +282,7 @@
             </button>
             <button id="leaderboardBtn" class="nav-btn">
                 <span class="nav-icon">🏆</span>
-                <span class.nav-label">Sıralama</span>
+                <span class="nav-label">Sıralama</span>
             </button>
         </nav>
 

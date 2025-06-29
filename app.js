@@ -281,11 +281,28 @@ class MiniGamesApp {
 
         // Lives modal event listeners
         document.querySelector('.lives-display').addEventListener('click', () => this.openLivesModal());
-        document.getElementById('livesModal').addEventListener('click', () => this.closeLivesModal());
+        document.getElementById('livesModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                this.closeLivesModal();
+            }
+        });
+        document.getElementById('closeLivesModal').addEventListener('click', () => this.closeLivesModal());
         
         // Shop event listeners
         document.querySelectorAll('.buy-btn').forEach(btn => {
-            btn.addEventListener('click', () => this.buyItem(btn.closest('.shop-item').dataset.type, parseInt(btn.closest('.shop-item').dataset.amount), parseInt(btn.closest('.shop-item').dataset.cost)));
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.shop-item');
+                const itemType = item.dataset.type || 'lives';
+                const amount = parseInt(btn.dataset.lives) || 0;
+                const cost = parseInt(btn.dataset.cost) || 0;
+                
+                if (item.classList.contains('coming-soon-item')) {
+                    this.showNotification(this.getTranslation('comingSoon'), 'info');
+                    return;
+                }
+                
+                this.buyItem(itemType, amount, cost);
+            });
         });
     }
     
@@ -631,11 +648,12 @@ class MiniGamesApp {
         
         this.coins -= cost;
         this.updateCoinDisplay();
-        this.saveLives();
+        this.saveCoins();
         
         if (itemType === 'lives') {
             this.lives = Math.min(this.lives + amount, this.maxLives);
             this.updateLivesDisplay();
+            this.saveLives();
             this.showNotification(`${this.getTranslation('livesPurchased')}: +${amount}`, 'success');
         } else if (itemType === 'unlimited') {
             // 30 minutes unlimited lives
